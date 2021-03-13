@@ -1,14 +1,14 @@
 
 package veterinaria.Main;
 
-import Login.Inicio;
+import Login.Start;
 
 
 public class App {
 
    
     public static void main(String[] args) {
-      new Inicio().setVisible(true);
+      new Start().setVisible(true);
     }
     
 }

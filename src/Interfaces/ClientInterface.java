@@ -5,17 +5,28 @@
  */
 package Interfaces;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author juanq
  */
-public class clientInterface extends javax.swing.JFrame {
+public class ClientInterface extends javax.swing.JFrame {
 
     /**
      * Creates new form clientInterface
      */
-    public clientInterface() {
+    public ClientInterface() {
         initComponents();
+        centreWindow(); 
+    }
+
+    private void centreWindow() {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+        this.setLocation(x, y - 25);
     }
 
     /**
@@ -28,9 +39,6 @@ public class clientInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         content = new javax.swing.JPanel();
-        main_tittle = new javax.swing.JPanel();
-        tittle = new javax.swing.JLabel();
-        showName = new javax.swing.JLabel();
         reg_title = new javax.swing.JLabel();
         ccOnwer_title = new javax.swing.JLabel();
         petName_title = new javax.swing.JLabel();
@@ -42,27 +50,19 @@ public class clientInterface extends javax.swing.JFrame {
         petColorTextField = new javax.swing.JTextField();
         petRaceTextField = new javax.swing.JTextField();
         bornDateTextField = new javax.swing.JTextField();
-        registry_button = new javax.swing.JPanel();
-        registry_title = new javax.swing.JLabel();
-        dateRequest_button = new javax.swing.JPanel();
-        dateRequest_title = new javax.swing.JLabel();
-        modifyDate_button = new javax.swing.JPanel();
-        modifyDate_title = new javax.swing.JLabel();
-        cancelDate_button = new javax.swing.JPanel();
-        cancelDate_title = new javax.swing.JLabel();
+        requestQuoteButton = new javax.swing.JButton();
+        modifyQuoteButton = new javax.swing.JButton();
+        cancelQuoteButton = new javax.swing.JButton();
+        registryButton = new javax.swing.JButton();
+        main_tittle = new javax.swing.JPanel();
+        tittle = new javax.swing.JLabel();
+        showName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(650, 440));
 
         content.setBackground(new java.awt.Color(255, 255, 255));
-
-        main_tittle.setBackground(new java.awt.Color(8, 156, 255));
-
-        tittle.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        tittle.setText("BIENVENIDO");
-        main_tittle.add(tittle);
-
-        showName.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        main_tittle.add(showName);
+        content.setPreferredSize(new java.awt.Dimension(650, 440));
 
         reg_title.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         reg_title.setText("Registro");
@@ -112,49 +112,45 @@ public class clientInterface extends javax.swing.JFrame {
             }
         });
 
-        registry_button.setBackground(new java.awt.Color(8, 156, 255));
-        registry_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                registry_buttonMouseClicked(evt);
+        requestQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
+        requestQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        requestQuoteButton.setText("Solicitar cita");
+        requestQuoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestQuoteButtonActionPerformed(evt);
             }
         });
 
-        registry_title.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
-        registry_title.setText("Registrar");
-        registry_button.add(registry_title);
-
-        dateRequest_button.setBackground(new java.awt.Color(8, 156, 255));
-        dateRequest_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dateRequest_buttonMouseClicked(evt);
+        modifyQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
+        modifyQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        modifyQuoteButton.setText("Modificar cita");
+        modifyQuoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyQuoteButtonActionPerformed(evt);
             }
         });
 
-        dateRequest_title.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        dateRequest_title.setText("Solicitar cita");
-        dateRequest_button.add(dateRequest_title);
+        cancelQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
+        cancelQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        cancelQuoteButton.setText("Cancelar cita");
 
-        modifyDate_button.setBackground(new java.awt.Color(8, 156, 255));
-        modifyDate_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modifyDate_buttonMouseClicked(evt);
+        registryButton.setBackground(new java.awt.Color(8, 156, 255));
+        registryButton.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        registryButton.setText("Registrar");
+        registryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registryButtonActionPerformed(evt);
             }
         });
 
-        modifyDate_title.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        modifyDate_title.setText("Modificar cita");
-        modifyDate_button.add(modifyDate_title);
+        main_tittle.setBackground(new java.awt.Color(8, 156, 255));
 
-        cancelDate_button.setBackground(new java.awt.Color(8, 156, 255));
-        cancelDate_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelDate_buttonMouseClicked(evt);
-            }
-        });
+        tittle.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        tittle.setText("BIENVENIDO");
+        main_tittle.add(tittle);
 
-        cancelDate_title.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        cancelDate_title.setText("Cancelar Cita");
-        cancelDate_button.add(cancelDate_title);
+        showName.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        main_tittle.add(showName);
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -164,10 +160,36 @@ public class clientInterface extends javax.swing.JFrame {
             .addGroup(contentLayout.createSequentialGroup()
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(ccOnwer_title)
-                        .addGap(83, 83, 83)
-                        .addComponent(petName_title))
+                        .addGap(90, 90, 90)
+                        .addComponent(petColor_title)
+                        .addGap(159, 159, 159)
+                        .addComponent(petRace_title))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(bornDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(modifyQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(registryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addGap(50, 50, 50)
+                                        .addComponent(ccOnwer_title)
+                                        .addGap(83, 83, 83)
+                                        .addComponent(petName_title))
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addGap(167, 167, 167)
+                                        .addComponent(reg_title, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(87, 87, 87)
+                                .addComponent(requestQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contentLayout.createSequentialGroup()
+                            .addGap(144, 144, 144)
+                            .addComponent(bornDate_title)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cancelQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(contentLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -176,84 +198,54 @@ public class clientInterface extends javax.swing.JFrame {
                         .addGap(46, 46, 46)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(petNameTextField)
-                            .addComponent(petRaceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(reg_title, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(petColor_title)
-                        .addGap(159, 159, 159)
-                        .addComponent(petRace_title)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                        .addComponent(dateRequest_button, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modifyDate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cancelDate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-            .addGroup(contentLayout.createSequentialGroup()
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(bornDate_title))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(bornDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(registry_button, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(petRaceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
                 .addComponent(main_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(reg_title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ccOnwer_title)
-                        .addComponent(petName_title))
-                    .addComponent(dateRequest_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(contentLayout.createSequentialGroup()
+                        .addComponent(reg_title)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ccOnwer_title)
+                            .addComponent(petName_title))
+                        .addGap(19, 19, 19)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ccOwnerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(petNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(9, 9, 9)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(petColor_title)
-                            .addComponent(petRace_title)))
-                    .addComponent(modifyDate_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(cancelDate_button, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                            .addComponent(petRace_title))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(petColorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                            .addComponent(petRaceTextField))))
-                .addGap(18, 18, 18)
-                .addComponent(bornDate_title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bornDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addComponent(registry_button, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                            .addComponent(petRaceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(bornDate_title)
+                        .addGap(14, 14, 14)
+                        .addComponent(bornDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(registryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(requestQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(modifyQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,21 +275,17 @@ public class clientInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bornDateTextFieldActionPerformed
 
-    private void registry_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registry_buttonMouseClicked
+    private void registryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registryButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_registry_buttonMouseClicked
+    }//GEN-LAST:event_registryButtonActionPerformed
 
-    private void dateRequest_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateRequest_buttonMouseClicked
+    private void requestQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestQuoteButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dateRequest_buttonMouseClicked
+    }//GEN-LAST:event_requestQuoteButtonActionPerformed
 
-    private void modifyDate_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyDate_buttonMouseClicked
+    private void modifyQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyQuoteButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_modifyDate_buttonMouseClicked
-
-    private void cancelDate_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelDate_buttonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelDate_buttonMouseClicked
+    }//GEN-LAST:event_modifyQuoteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,20 +304,21 @@ public class clientInterface extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(clientInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(clientInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(clientInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(clientInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new clientInterface().setVisible(true);
+                new ClientInterface().setVisible(true);
             }
         });
     }
@@ -337,16 +326,12 @@ public class clientInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bornDateTextField;
     private javax.swing.JLabel bornDate_title;
-    private javax.swing.JPanel cancelDate_button;
-    private javax.swing.JLabel cancelDate_title;
+    private javax.swing.JButton cancelQuoteButton;
     private javax.swing.JLabel ccOnwer_title;
     private javax.swing.JTextField ccOwnerTextField;
     private javax.swing.JPanel content;
-    private javax.swing.JPanel dateRequest_button;
-    private javax.swing.JLabel dateRequest_title;
     private javax.swing.JPanel main_tittle;
-    private javax.swing.JPanel modifyDate_button;
-    private javax.swing.JLabel modifyDate_title;
+    private javax.swing.JButton modifyQuoteButton;
     private javax.swing.JTextField petColorTextField;
     private javax.swing.JLabel petColor_title;
     private javax.swing.JTextField petNameTextField;
@@ -354,8 +339,8 @@ public class clientInterface extends javax.swing.JFrame {
     private javax.swing.JTextField petRaceTextField;
     private javax.swing.JLabel petRace_title;
     private javax.swing.JLabel reg_title;
-    private javax.swing.JPanel registry_button;
-    private javax.swing.JLabel registry_title;
+    private javax.swing.JButton registryButton;
+    private javax.swing.JButton requestQuoteButton;
     private javax.swing.JLabel showName;
     private javax.swing.JLabel tittle;
     // End of variables declaration//GEN-END:variables

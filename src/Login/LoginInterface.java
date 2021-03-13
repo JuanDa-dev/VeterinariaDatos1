@@ -1,8 +1,8 @@
 package Login;
 
-import Interfaces.adminInterface;
-import Interfaces.clientInterface;
-import Interfaces.vetInterface;
+import Interfaces.AdminInterface;
+import Interfaces.ClientInterface;
+import Interfaces.VetInterface;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -33,34 +33,33 @@ public class LoginInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        card_content = new javax.swing.JPanel();
-        login_section = new javax.swing.JPanel();
+        cardContent = new javax.swing.JPanel();
+        loginSection = new javax.swing.JPanel();
         login_tittle = new javax.swing.JLabel();
-        name_text = new javax.swing.JTextField();
-        key_text = new javax.swing.JTextField();
-        key_tittle = new javax.swing.JLabel();
-        name_tittle = new javax.swing.JLabel();
+        nameText = new javax.swing.JTextField();
+        keyText = new javax.swing.JTextField();
+        keyTittle = new javax.swing.JLabel();
+        nameTittle = new javax.swing.JLabel();
         singInbutton = new javax.swing.JPanel();
         singIn_title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(400, 375));
-        setPreferredSize(new java.awt.Dimension(400, 300));
 
-        card_content.setBackground(new java.awt.Color(255, 255, 255));
+        cardContent.setBackground(new java.awt.Color(255, 255, 255));
 
-        login_section.setBackground(new java.awt.Color(8, 156, 255));
+        loginSection.setBackground(new java.awt.Color(8, 156, 255));
 
         login_tittle.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         login_tittle.setText("Login");
-        login_section.add(login_tittle);
+        loginSection.add(login_tittle);
 
-        key_tittle.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
-        key_tittle.setText("Clave");
+        keyTittle.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        keyTittle.setText("Clave");
 
-        name_tittle.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
-        name_tittle.setText("Nombre");
+        nameTittle.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        nameTittle.setText("Nombre");
 
         singInbutton.setBackground(new java.awt.Color(8, 156, 255));
         singInbutton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,41 +72,41 @@ public class LoginInterface extends javax.swing.JFrame {
         singIn_title.setText("Iniciar");
         singInbutton.add(singIn_title);
 
-        javax.swing.GroupLayout card_contentLayout = new javax.swing.GroupLayout(card_content);
-        card_content.setLayout(card_contentLayout);
-        card_contentLayout.setHorizontalGroup(
-            card_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(login_section, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(card_contentLayout.createSequentialGroup()
-                .addGroup(card_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(card_contentLayout.createSequentialGroup()
+        javax.swing.GroupLayout cardContentLayout = new javax.swing.GroupLayout(cardContent);
+        cardContent.setLayout(cardContentLayout);
+        cardContentLayout.setHorizontalGroup(
+            cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loginSection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(cardContentLayout.createSequentialGroup()
+                .addGroup(cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cardContentLayout.createSequentialGroup()
                         .addGap(158, 158, 158)
-                        .addComponent(name_tittle))
-                    .addGroup(card_contentLayout.createSequentialGroup()
+                        .addComponent(nameTittle))
+                    .addGroup(cardContentLayout.createSequentialGroup()
                         .addGap(170, 170, 170)
-                        .addComponent(key_tittle))
-                    .addGroup(card_contentLayout.createSequentialGroup()
+                        .addComponent(keyTittle))
+                    .addGroup(cardContentLayout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addComponent(singInbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(card_contentLayout.createSequentialGroup()
+                    .addGroup(cardContentLayout.createSequentialGroup()
                         .addGap(90, 90, 90)
-                        .addGroup(card_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(name_text)
-                            .addComponent(key_text, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))))
+                        .addGroup(cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nameText)
+                            .addComponent(keyText, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))))
                 .addContainerGap(103, Short.MAX_VALUE))
         );
-        card_contentLayout.setVerticalGroup(
-            card_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card_contentLayout.createSequentialGroup()
-                .addComponent(login_section, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        cardContentLayout.setVerticalGroup(
+            cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardContentLayout.createSequentialGroup()
+                .addComponent(loginSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(name_tittle)
+                .addComponent(nameTittle)
                 .addGap(22, 22, 22)
-                .addComponent(name_text, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(key_tittle)
+                .addComponent(keyTittle)
                 .addGap(18, 18, 18)
-                .addComponent(key_text, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(keyText, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(singInbutton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -117,30 +116,30 @@ public class LoginInterface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(card_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cardContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(card_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cardContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void singInbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_singInbuttonMouseClicked
-        String nombre = name_text.getText();
-        int key = Integer.parseInt(key_text.getText());
+        String nombre = nameText.getText();
+        int key = Integer.parseInt(keyText.getText());
         if (user.equals("Cliente") && nombre.equals("Mario") && key == 1429) {//Usuario y clave para el modulo cliente
-            new clientInterface().setVisible(true);
+            new ClientInterface().setVisible(true);
             this.dispose();
         } else if (user.equals("Veterinario") && nombre.equals("David") && key == 1110) {//Usuario y clave para el modulo veterinario
-            new vetInterface().setVisible(true);
+            new VetInterface().setVisible(true);
             this.dispose();
         } else if (user.equals("Administrador") && nombre.equals("Juan") && key == 1415) {//Ususario y clave para el modulo administrador
-            new adminInterface().setVisible(true);
+            new AdminInterface().setVisible(true);
             this.dispose();
         }else{
-            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos, digite nuevamente");
+            JOptionPane.showMessageDialog(cardContent,"Error" ,"Usuario o contraseña incorrectos, digite nuevamente",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_singInbuttonMouseClicked
 
@@ -180,13 +179,13 @@ public class LoginInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel card_content;
-    private javax.swing.JTextField key_text;
-    private javax.swing.JLabel key_tittle;
-    private javax.swing.JPanel login_section;
+    private javax.swing.JPanel cardContent;
+    private javax.swing.JTextField keyText;
+    private javax.swing.JLabel keyTittle;
+    private javax.swing.JPanel loginSection;
     private javax.swing.JLabel login_tittle;
-    private javax.swing.JTextField name_text;
-    private javax.swing.JLabel name_tittle;
+    private javax.swing.JTextField nameText;
+    private javax.swing.JLabel nameTittle;
     private javax.swing.JLabel singIn_title;
     private javax.swing.JPanel singInbutton;
     // End of variables declaration//GEN-END:variables

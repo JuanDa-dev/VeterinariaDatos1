@@ -27,17 +27,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="card_content" alignment="0" max="32767" attributes="0"/>
+          <Component id="cardContent" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="card_content" alignment="0" max="32767" attributes="0"/>
+          <Component id="cardContent" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="card_content">
+    <Container class="javax.swing.JPanel" name="cardContent">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -47,16 +47,16 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="login_section" alignment="0" max="32767" attributes="0"/>
+              <Component id="loginSection" alignment="0" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
-                          <Component id="name_tittle" min="-2" max="-2" attributes="0"/>
+                          <Component id="nameTittle" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
-                          <Component id="key_tittle" min="-2" max="-2" attributes="0"/>
+                          <Component id="keyTittle" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
@@ -65,8 +65,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="name_text" max="32767" attributes="0"/>
-                              <Component id="key_text" pref="207" max="32767" attributes="0"/>
+                              <Component id="nameText" max="32767" attributes="0"/>
+                              <Component id="keyText" pref="207" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -77,15 +77,15 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="login_section" min="-2" max="-2" attributes="0"/>
+                  <Component id="loginSection" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="name_tittle" min="-2" max="-2" attributes="0"/>
+                  <Component id="nameTittle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="name_text" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="nameText" min="-2" pref="33" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="key_tittle" min="-2" max="-2" attributes="0"/>
+                  <Component id="keyTittle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="key_text" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="keyText" min="-2" pref="33" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="singInbutton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="25" max="32767" attributes="0"/>
@@ -94,7 +94,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="login_section">
+        <Container class="javax.swing.JPanel" name="loginSection">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="9c" red="8" type="rgb"/>
@@ -113,11 +113,11 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="name_text">
+        <Component class="javax.swing.JTextField" name="nameText">
         </Component>
-        <Component class="javax.swing.JTextField" name="key_text">
+        <Component class="javax.swing.JTextField" name="keyText">
         </Component>
-        <Component class="javax.swing.JLabel" name="key_tittle">
+        <Component class="javax.swing.JLabel" name="keyTittle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto" size="20" style="1"/>
@@ -125,7 +125,7 @@
             <Property name="text" type="java.lang.String" value="Clave"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="name_tittle">
+        <Component class="javax.swing.JLabel" name="nameTittle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto" size="20" style="1"/>
