@@ -7,6 +7,16 @@ package Interfaces;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,12 +24,14 @@ import java.awt.Toolkit;
  */
 public class ClientInterface extends javax.swing.JFrame {
 
-    /**
-     * Creates new form clientInterface
-     */
+    File cliente;
+    File cita;
+    File agenda;
+    
     public ClientInterface() {
         initComponents();
-        centreWindow(); 
+        centreWindow();
+        TablaSolicitud();
     }
 
     private void centreWindow() {
@@ -38,79 +50,206 @@ public class ClientInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        SolitudCita = new javax.swing.JFrame();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        solicitarCita = new javax.swing.JButton();
+        ModicarCita = new javax.swing.JFrame();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        buscar = new javax.swing.JTextField();
+        cancelarCita = new javax.swing.JButton();
+        guardarCambios = new javax.swing.JButton();
         content = new javax.swing.JPanel();
         reg_title = new javax.swing.JLabel();
-        ccOnwer_title = new javax.swing.JLabel();
-        petName_title = new javax.swing.JLabel();
-        petRace_title = new javax.swing.JLabel();
-        petColor_title = new javax.swing.JLabel();
-        bornDate_title = new javax.swing.JLabel();
-        ccOwnerTextField = new javax.swing.JTextField();
-        petNameTextField = new javax.swing.JTextField();
-        petColorTextField = new javax.swing.JTextField();
-        petRaceTextField = new javax.swing.JTextField();
-        bornDateTextField = new javax.swing.JTextField();
         requestQuoteButton = new javax.swing.JButton();
         modifyQuoteButton = new javax.swing.JButton();
-        cancelQuoteButton = new javax.swing.JButton();
         registryButton = new javax.swing.JButton();
         main_tittle = new javax.swing.JPanel();
         tittle = new javax.swing.JLabel();
         showName = new javax.swing.JLabel();
+        color = new javax.swing.JTextField();
+        raza = new javax.swing.JTextField();
+        cedula = new javax.swing.JTextField();
+        nombrePerro = new javax.swing.JTextField();
+        fecha = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("Tabla de Solicitud de Citas");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Servicio", "Costo", "Tiempo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        solicitarCita.setText("Solicitar Cita");
+        solicitarCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                solicitarCitaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SolitudCitaLayout = new javax.swing.GroupLayout(SolitudCita.getContentPane());
+        SolitudCita.getContentPane().setLayout(SolitudCitaLayout);
+        SolitudCitaLayout.setHorizontalGroup(
+            SolitudCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SolitudCitaLayout.createSequentialGroup()
+                .addGroup(SolitudCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SolitudCitaLayout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jLabel9))
+                    .addGroup(SolitudCitaLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(SolitudCitaLayout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(solicitarCita)))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        SolitudCitaLayout.setVerticalGroup(
+            SolitudCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SolitudCitaLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(solicitarCita)
+                .addGap(24, 24, 24))
+        );
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setText("Tabla de Cancelación/Modificacion de Citas");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cedula del Dueño", "Nombre del Perro", "Servicio", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable2);
+
+        jLabel12.setText("Cedula:");
+
+        buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscarKeyReleased(evt);
+            }
+        });
+
+        cancelarCita.setText("Cancelar Cita");
+        cancelarCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarCitaActionPerformed(evt);
+            }
+        });
+
+        guardarCambios.setText("Guardar Cambios");
+        guardarCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarCambiosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ModicarCitaLayout = new javax.swing.GroupLayout(ModicarCita.getContentPane());
+        ModicarCita.getContentPane().setLayout(ModicarCitaLayout);
+        ModicarCitaLayout.setHorizontalGroup(
+            ModicarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ModicarCitaLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(ModicarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ModicarCitaLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelarCita)
+                        .addGap(18, 18, 18)
+                        .addComponent(guardarCambios)))
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ModicarCitaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addGap(109, 109, 109))
+        );
+        ModicarCitaLayout.setVerticalGroup(
+            ModicarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ModicarCitaLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ModicarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ModicarCitaLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(ModicarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(ModicarCitaLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(ModicarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(guardarCambios)
+                            .addComponent(cancelarCita))))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(650, 440));
 
         content.setBackground(new java.awt.Color(255, 255, 255));
         content.setPreferredSize(new java.awt.Dimension(650, 440));
+        content.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        reg_title.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        reg_title.setText("Registro");
-
-        ccOnwer_title.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        ccOnwer_title.setText("Cédula del dueño");
-
-        petName_title.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        petName_title.setText("Nombre del perro");
-
-        petRace_title.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        petRace_title.setText("Raza");
-
-        petColor_title.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        petColor_title.setText("Color ");
-
-        bornDate_title.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        bornDate_title.setText("Fecha Nacimiento");
-
-        ccOwnerTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ccOwnerTextFieldActionPerformed(evt);
-            }
-        });
-
-        petNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                petNameTextFieldActionPerformed(evt);
-            }
-        });
-
-        petColorTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                petColorTextFieldActionPerformed(evt);
-            }
-        });
-
-        petRaceTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                petRaceTextFieldActionPerformed(evt);
-            }
-        });
-
-        bornDateTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bornDateTextFieldActionPerformed(evt);
-            }
-        });
+        reg_title.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        reg_title.setForeground(new java.awt.Color(255, 102, 0));
+        reg_title.setText("Registro de clientes");
+        content.add(reg_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 180, -1));
 
         requestQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
         requestQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -120,6 +259,7 @@ public class ClientInterface extends javax.swing.JFrame {
                 requestQuoteButtonActionPerformed(evt);
             }
         });
+        content.add(requestQuoteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 160, 30));
 
         modifyQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
         modifyQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -129,19 +269,17 @@ public class ClientInterface extends javax.swing.JFrame {
                 modifyQuoteButtonActionPerformed(evt);
             }
         });
-
-        cancelQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
-        cancelQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        cancelQuoteButton.setText("Cancelar cita");
+        content.add(modifyQuoteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 160, 30));
 
         registryButton.setBackground(new java.awt.Color(8, 156, 255));
-        registryButton.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        registryButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         registryButton.setText("Registrar");
         registryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registryButtonActionPerformed(evt);
             }
         });
+        content.add(registryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 110, 60));
 
         main_tittle.setBackground(new java.awt.Color(8, 156, 255));
 
@@ -152,100 +290,47 @@ public class ClientInterface extends javax.swing.JFrame {
         showName.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         main_tittle.add(showName);
 
-        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
-        content.setLayout(contentLayout);
-        contentLayout.setHorizontalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(main_tittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(contentLayout.createSequentialGroup()
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(petColor_title)
-                        .addGap(159, 159, 159)
-                        .addComponent(petRace_title))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(bornDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(modifyQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addGap(159, 159, 159)
-                                .addComponent(registryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(contentLayout.createSequentialGroup()
-                                        .addGap(50, 50, 50)
-                                        .addComponent(ccOnwer_title)
-                                        .addGap(83, 83, 83)
-                                        .addComponent(petName_title))
-                                    .addGroup(contentLayout.createSequentialGroup()
-                                        .addGap(167, 167, 167)
-                                        .addComponent(reg_title, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(87, 87, 87)
-                                .addComponent(requestQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contentLayout.createSequentialGroup()
-                            .addGap(144, 144, 144)
-                            .addComponent(bornDate_title)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cancelQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(petColorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(ccOwnerTextField))
-                        .addGap(46, 46, 46)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(petNameTextField)
-                            .addComponent(petRaceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))))
-                .addContainerGap(61, Short.MAX_VALUE))
-        );
-        contentLayout.setVerticalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentLayout.createSequentialGroup()
-                .addComponent(main_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addComponent(reg_title)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ccOnwer_title)
-                            .addComponent(petName_title))
-                        .addGap(19, 19, 19)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ccOwnerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(petNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(petColor_title)
-                            .addComponent(petRace_title))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(petColorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                            .addComponent(petRaceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(bornDate_title)
-                        .addGap(14, 14, 14)
-                        .addComponent(bornDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(registryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(requestQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(modifyQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
+        content.add(main_tittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 60));
+        content.add(color, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 110, -1));
+        content.add(raza, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 110, -1));
+        content.add(cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 110, -1));
+        content.add(nombrePerro, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 110, -1));
+        content.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 90, -1));
+
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Cedula del Dueño:");
+        content.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 140, 30));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Nombre del perro:");
+        content.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Fecha de Nacimiento:");
+        content.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Raza:");
+        content.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Color:");
+        content.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/Imagenes/inicio.jpg"))); // NOI18N
+        content.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 60, 620, 380));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,28 +340,49 @@ public class ClientInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ccOwnerTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ccOwnerTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ccOwnerTextFieldActionPerformed
-
-    private void petNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_petNameTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_petNameTextFieldActionPerformed
-
-    private void petColorTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_petColorTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_petColorTextFieldActionPerformed
-
-    private void petRaceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_petRaceTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_petRaceTextFieldActionPerformed
-
-    private void bornDateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bornDateTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bornDateTextFieldActionPerformed
-
     private void registryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registryButtonActionPerformed
-        // TODO add your handling code here:
+        String data[] = {nombrePerro.getText(), raza.getText(), color.getText(), String.valueOf(fecha.getCalendar().get(Calendar.DATE))};
+        if (Esnumero(cedula.getText()) && NoVacia(data)) {
+            //Datos para crear el archivo de Clientes
+            String sDir = "C:\\user"; // direccion
+            File f = new File(sDir); // instancia de la carpeta
+            String ruta = "C:\\user"; // ruta para el archivo
+            String fileName = "Clientes.txt"; // nombre
+            cliente = new File(ruta, fileName); // instancia el archivo
+
+            if (!cliente.exists()) {//Reviso que el archivo no exista
+                try {
+                    //mira si el archivo existe o no
+                    f.mkdir();
+                    cliente.createNewFile();//Creo el archivo
+                } catch (IOException ex) {
+                    Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+            String dia = Integer.toString(fecha.getCalendar().get(Calendar.DATE));//Recupera el dia de la tabla
+            String mes = Integer.toString(fecha.getCalendar().get(Calendar.MONTH + 1));//Recupera el mes de la tabla
+            String año = Integer.toString(fecha.getCalendar().get(Calendar.YEAR));//Recupera el año de la tabla
+            //SACAR LA INFORMACION DE TEXTFIELD
+            int ced = Integer.parseInt(cedula.getText());
+            String nombre = nombrePerro.getText();
+            String razaPerro = raza.getText();
+            String colorPerro = color.getText();
+            String date = dia + "/" + mes + "/" + año;
+
+            //Escribo la informacion en el archivo
+            try (FileWriter fw = new FileWriter(cliente.getAbsolutePath(), true)) {
+                BufferedWriter bw = new BufferedWriter(fw);//Creo el buffered
+                bw.write(ced + "," + nombre + "," + razaPerro + "," + colorPerro + "," + date);
+                bw.newLine();
+                bw.flush();
+                bw.close();
+                fw.close();
+            } catch (Exception e) {
+                Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }//GEN-LAST:event_registryButtonActionPerformed
 
     private void requestQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestQuoteButtonActionPerformed
@@ -287,9 +393,137 @@ public class ClientInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_modifyQuoteButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void solicitarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitarCitaActionPerformed
+        int selected = jTable1.getSelectedRow();
+        if (selected > -1) {
+            String data[] = {nombrePerro.getText(), raza.getText(), color.getText(), String.valueOf(fecha.getCalendar().get(Calendar.DATE))};
+            if (Esnumero(cedula.getText()) && NoVacia(data)) {
+                //Creo las variables para el archivo agenda
+                String direccion = "C:\\user";
+                File f = new File(direccion);
+                String dir = "C:\\user";
+                String nameFile = "Citas.txt";
+                cita = new File(dir, nameFile);
+
+                //Reviso que no exista el archivo agenda
+                if (!cita.exists()) {
+                    try {
+                        f.mkdir();
+                        cita.createNewFile();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                String serv = (String) model.getValueAt(jTable1.getSelectedRow(), 0);//Recupero el sevicio que selecciono
+                String ced = cedula.getText();
+                String nombre = nombrePerro.getText();
+                String estado = "Solicitada";
+                cliente = new File("C:\\user\\Clientes.txt");
+
+                try (FileWriter fw = new FileWriter(cita.getAbsolutePath(), true)) {
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    if (!CitaRepetida(cliente, ced, nombre)) {
+                        bw.write(ced + "," + nombre + "," + serv + "," + estado);
+                    }
+                    bw.newLine();
+                    bw.flush();
+                    bw.close();
+                    fw.close();
+                } catch (Exception e) {
+                    Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
+    }//GEN-LAST:event_solicitarCitaActionPerformed
+
+    private void buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyReleased
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);//Borro los registros
+        String cadena[] = {buscar.getText()};
+        if (Esnumero(buscar.getText()) && NoVacia(cadena)) {//Reviso que ingrese un numero o que la cadena no este vacia
+            File archivo = new File("C:\\user\\Citas.txt");
+            try (Scanner sc = new Scanner(archivo)) {//Abro el archivo
+                while (sc.hasNextLine()) {//mientras halla una siguiente linea
+                    String linea = sc.nextLine();
+                    String data[] = linea.split(",");
+                    String ced = data[0];
+                    String nombre = data[1];
+                    String servicio = data[2];
+                    String estado = data[3];
+                    if (ced.contains(buscar.getText())) {//si encuentro coincidencias, muestra los datos en la tabla
+                        model.addRow(new Object[]{ced, nombre, servicio, estado});//Muestro los datos de esa cedula
+                    }
+                }
+                sc.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            model.setRowCount(0);//Borro otra vez los registros
+        }
+    }//GEN-LAST:event_buscarKeyReleased
+
+    private void cancelarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarCitaActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        int selected = (int) jTable2.getSelectedRow();
+        model.setValueAt("Cancelada", selected, 3);
+    }//GEN-LAST:event_cancelarCitaActionPerformed
+
+    private void guardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarCambiosActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        save(model);//Guardo la informacion en el archivo
+    }//GEN-LAST:event_guardarCambiosActionPerformed
+
+    //Valido que la cedula que ingresan sea numerico
+    private boolean Esnumero(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    //Valido que todos los datos hallan sido ingresados
+    private boolean NoVacia(String[] cadena) {
+        for (String cad : cadena) {
+            if (cad.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Subrutina para colocar los datos en la tabla de solicitid de citas
+    private void TablaSolicitud() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(new Object[]{"Consulta", 60000, "1 hora"});
+        model.addRow(new Object[]{"Control", 10000, "1/2 hora"});
+        model.addRow(new Object[]{"Desparasitación", 40000, "1/2 hora"});
+        model.addRow(new Object[]{"Vacunación", 35000, "1/2 hora"});
+        model.addRow(new Object[]{"Guarderia", 35000, "Solo por dia"});
+        model.addRow(new Object[]{"Radiologia", 100000, "1 hora"});
+        model.addRow(new Object[]{"Baño", 25000, "2 horas"});
+    }
+
+    private boolean CitaRepetida(File archivo, String cedula, String nombre) {
+        try (Scanner sc = new Scanner(archivo)) {
+            while (sc.hasNextLine()) {
+                String linea = sc.nextLine();
+                String data[] = linea.split(",");
+                if (data[0].equals(cedula) && data[1].equals(nombre)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -324,24 +558,43 @@ public class ClientInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bornDateTextField;
-    private javax.swing.JLabel bornDate_title;
-    private javax.swing.JButton cancelQuoteButton;
-    private javax.swing.JLabel ccOnwer_title;
-    private javax.swing.JTextField ccOwnerTextField;
+    private javax.swing.JFrame ModicarCita;
+    private javax.swing.JFrame SolitudCita;
+    private javax.swing.JTextField buscar;
+    private javax.swing.JButton cancelarCita;
+    private javax.swing.JTextField cedula;
+    private javax.swing.JTextField color;
     private javax.swing.JPanel content;
+    private com.toedter.calendar.JDateChooser fecha;
+    private javax.swing.JButton guardarCambios;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JPanel main_tittle;
     private javax.swing.JButton modifyQuoteButton;
-    private javax.swing.JTextField petColorTextField;
-    private javax.swing.JLabel petColor_title;
-    private javax.swing.JTextField petNameTextField;
-    private javax.swing.JLabel petName_title;
-    private javax.swing.JTextField petRaceTextField;
-    private javax.swing.JLabel petRace_title;
+    private javax.swing.JTextField nombrePerro;
+    private javax.swing.JTextField raza;
     private javax.swing.JLabel reg_title;
     private javax.swing.JButton registryButton;
     private javax.swing.JButton requestQuoteButton;
     private javax.swing.JLabel showName;
+    private javax.swing.JButton solicitarCita;
     private javax.swing.JLabel tittle;
     // End of variables declaration//GEN-END:variables
+
+    //Actualizo los datos
+    private void save(DefaultTableModel model){
+        
+    }
+
 }

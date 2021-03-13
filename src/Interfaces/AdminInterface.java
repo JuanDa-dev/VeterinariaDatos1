@@ -7,11 +7,8 @@ package Interfaces;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,7 +61,6 @@ public class AdminInterface extends javax.swing.JFrame {
 
         AgendaAdmin.setTitle("Agenda de Citas");
         AgendaAdmin.setLocation(new java.awt.Point(150, 100));
-        AgendaAdmin.setPreferredSize(new java.awt.Dimension(723, 387));
         AgendaAdmin.setSize(new java.awt.Dimension(722, 387));
 
         cardcontent.setPreferredSize(new java.awt.Dimension(723, 382));
@@ -194,7 +190,6 @@ public class AdminInterface extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(650, 440));
 
         cardContent.setBackground(new java.awt.Color(255, 255, 255));
         cardContent.setPreferredSize(new java.awt.Dimension(650, 440));
@@ -230,7 +225,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 .addComponent(adminCardTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(155, 155, 155)
                 .addComponent(consultQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 244, Short.MAX_VALUE))
+                .addGap(0, 241, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -282,9 +277,7 @@ public class AdminInterface extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
         int selected = dataTable.getSelectedRow();
         if (selected > -1) {
-            dateTextField.setText((String) model.getValueAt(selected, 0));
-            ccTextField.setText((String) model.getValueAt(selected, 1));
-            petTextField.setText((String) model.getValueAt(selected, 2));
+            
         }
     }//GEN-LAST:event_selectButtonActionPerformed
 
