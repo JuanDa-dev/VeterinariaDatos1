@@ -7,8 +7,12 @@ package Interfaces;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,10 +53,23 @@ public class AdminInterface extends javax.swing.JFrame {
         title = new javax.swing.JPanel();
         saveButton = new javax.swing.JButton();
         agendTItle = new javax.swing.JLabel();
-        selectButton = new javax.swing.JButton();
-        modifyQuoteButton = new javax.swing.JButton();
         cancelQuoteButton = new javax.swing.JButton();
         asignQuoteButton = new javax.swing.JButton();
+        AsignQuotes = new javax.swing.JFrame();
+        content = new javax.swing.JPanel();
+        asignTitle = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        ccOnwerTitle = new javax.swing.JLabel();
+        petNameTitle = new javax.swing.JLabel();
+        bornDateTitle = new javax.swing.JLabel();
+        petRaceTitle = new javax.swing.JLabel();
+        petColorTitle = new javax.swing.JLabel();
+        ccTextField = new javax.swing.JTextField();
+        petNTextField = new javax.swing.JTextField();
+        petRTextField = new javax.swing.JTextField();
+        petCTextField = new javax.swing.JTextField();
+        bornDateCollecter = new com.toedter.calendar.JDateChooser();
+        reAsignButton = new javax.swing.JButton();
         cardContent = new javax.swing.JPanel();
         adminCardTitle = new javax.swing.JPanel();
         adminTitle = new javax.swing.JLabel();
@@ -67,7 +84,8 @@ public class AdminInterface extends javax.swing.JFrame {
 
         AgendaAdmin.setTitle("Agenda de Citas");
         AgendaAdmin.setLocation(new java.awt.Point(150, 100));
-        AgendaAdmin.setSize(new java.awt.Dimension(722, 387));
+        AgendaAdmin.setPreferredSize(new java.awt.Dimension(735, 430));
+        AgendaAdmin.setSize(new java.awt.Dimension(735, 430));
 
         cardcontent.setPreferredSize(new java.awt.Dimension(723, 382));
 
@@ -111,24 +129,6 @@ public class AdminInterface extends javax.swing.JFrame {
         agendTItle.setText("Agenda");
         title.add(agendTItle);
 
-        selectButton.setBackground(new java.awt.Color(8, 156, 255));
-        selectButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        selectButton.setText("Seleccionar");
-        selectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectButtonActionPerformed(evt);
-            }
-        });
-
-        modifyQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
-        modifyQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        modifyQuoteButton.setText("Modificar Cita");
-        modifyQuoteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modifyQuoteButtonActionPerformed(evt);
-            }
-        });
-
         cancelQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
         cancelQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         cancelQuoteButton.setText("Eliminar Cita");
@@ -157,15 +157,11 @@ public class AdminInterface extends javax.swing.JFrame {
                 .addComponent(showDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(cardcontentLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(selectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(modifyQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(109, 109, 109)
                 .addComponent(cancelQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(asignQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(151, 151, 151))
         );
         cardcontentLayout.setVerticalGroup(
             cardcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,15 +169,10 @@ public class AdminInterface extends javax.swing.JFrame {
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(showDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(cardcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(cardcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(selectButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(cardcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(modifyQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(asignQuoteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(cardcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(asignQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout AgendaAdminLayout = new javax.swing.GroupLayout(AgendaAdmin.getContentPane());
@@ -193,6 +184,112 @@ public class AdminInterface extends javax.swing.JFrame {
         AgendaAdminLayout.setVerticalGroup(
             AgendaAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cardcontent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        AsignQuotes.setTitle("Re Asignar Cita");
+        AsignQuotes.setMinimumSize(new java.awt.Dimension(360, 400));
+        AsignQuotes.setPreferredSize(new java.awt.Dimension(360, 400));
+
+        content.setBackground(new java.awt.Color(255, 255, 255));
+
+        asignTitle.setBackground(new java.awt.Color(8, 156, 255));
+
+        jLabel4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel4.setText("Asignar Cita");
+        asignTitle.add(jLabel4);
+
+        ccOnwerTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ccOnwerTitle.setText("Cédula del Dueño");
+
+        petNameTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        petNameTitle.setText("Nombre del perro");
+
+        bornDateTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        bornDateTitle.setText("Fecha de Nacimiento");
+
+        petRaceTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        petRaceTitle.setText("Raza");
+
+        petColorTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        petColorTitle.setText("Color");
+
+        reAsignButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        reAsignButton.setText("Asignar");
+        reAsignButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reAsignButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(asignTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(petNameTitle)
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(reAsignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addComponent(petColorTitle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(petCTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(petRaceTitle)
+                                    .addComponent(bornDateTitle)
+                                    .addComponent(ccOnwerTitle))
+                                .addGap(13, 13, 13)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ccTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(petRTextField)
+                                        .addComponent(bornDateCollecter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(petNTextField, javax.swing.GroupLayout.Alignment.TRAILING)))))))
+                .addContainerGap(88, Short.MAX_VALUE))
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentLayout.createSequentialGroup()
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addComponent(asignTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ccOnwerTitle)
+                            .addComponent(ccTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(petNameTitle)
+                            .addComponent(petNTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(bornDateTitle))
+                    .addComponent(bornDateCollecter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(petRaceTitle)
+                    .addComponent(petRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(petColorTitle)
+                    .addComponent(petCTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addComponent(reAsignButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+
+        javax.swing.GroupLayout AsignQuotesLayout = new javax.swing.GroupLayout(AsignQuotes.getContentPane());
+        AsignQuotes.getContentPane().setLayout(AsignQuotesLayout);
+        AsignQuotesLayout.setHorizontalGroup(
+            AsignQuotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        AsignQuotesLayout.setVerticalGroup(
+            AsignQuotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,7 +305,7 @@ public class AdminInterface extends javax.swing.JFrame {
 
         consultQuoteButton.setBackground(new java.awt.Color(8, 156, 255));
         consultQuoteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        consultQuoteButton.setText("Consultar Cita ");
+        consultQuoteButton.setText("Consultar agenda");
         consultQuoteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 consultQuoteButtonActionPerformed(evt);
@@ -229,16 +326,9 @@ public class AdminInterface extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -272,16 +362,16 @@ public class AdminInterface extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(cardContentLayout.createSequentialGroup()
                         .addGap(103, 103, 103)
-                        .addComponent(jLabel2)
+                        .addGroup(cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(consultQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(cardContentLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)))
                         .addGap(18, 18, 18)
-                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(cardContentLayout.createSequentialGroup()
-                        .addGap(243, 243, 243)
-                        .addComponent(consultQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         cardContentLayout.setVerticalGroup(
@@ -291,16 +381,16 @@ public class AdminInterface extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(consultQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(35, 35, 35)
+                .addComponent(consultQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -344,22 +434,6 @@ public class AdminInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_consultQuoteButtonActionPerformed
 
-    private void asignQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignQuoteButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_asignQuoteButtonActionPerformed
-
-    private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
-        int selected = dataTable.getSelectedRow();
-        if (selected > -1) {
-
-        }
-    }//GEN-LAST:event_selectButtonActionPerformed
-
-    private void modifyQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyQuoteButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modifyQuoteButtonActionPerformed
-
     private void cancelQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelQuoteButtonActionPerformed
         DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
         int selecteRow = dataTable.getSelectedRow();
@@ -389,14 +463,28 @@ public class AdminInterface extends javax.swing.JFrame {
                     String cedula = data[1];
                     String nombrePerro = data[2];
                     String servicio = data[3];
-                    switch(servicio){
-                        case "Consulta":costo=60000;break;
-                        case "Control":costo = 10000;break;
-                        case "Desparasitación":costo = 40000;break;
-                        case "Vacunación":costo = 35000;break;
-                        case "Guarderia":costo = 35000;break;
-                        case "Radiologia":costo = 100000;break;
-                        case "Baño":costo = 25000;break;
+                    switch (servicio) {
+                        case "Consulta":
+                            costo = 60000;
+                            break;
+                        case "Control":
+                            costo = 10000;
+                            break;
+                        case "Desparasitación":
+                            costo = 40000;
+                            break;
+                        case "Vacunación":
+                            costo = 35000;
+                            break;
+                        case "Guarderia":
+                            costo = 35000;
+                            break;
+                        case "Radiologia":
+                            costo = 100000;
+                            break;
+                        case "Baño":
+                            costo = 25000;
+                            break;
                     }
                     String estado = data[5];
                     if (cedula.contains(buscar.getText()) && estado.equals("Finalizada")) {//si encuentro coincidencias, muestra los datos en la tabla
@@ -413,12 +501,84 @@ public class AdminInterface extends javax.swing.JFrame {
         }
         jTextField2.setText(String.valueOf(total));
     }//GEN-LAST:event_buscarKeyReleased
-
+    //Valido que la cedula que ingresan sea numerico
     private boolean Esnumero(String cadena) {
         try {
             Integer.parseInt(cadena);
             return true;
         } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    File cliente;
+    File cita;
+    File agenda;
+    private void reAsignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reAsignButtonActionPerformed
+        String data[] = {petNTextField.getText(), petRTextField.getText(), petCTextField.getText(), String.valueOf(bornDateCollecter.getCalendar().get(Calendar.DATE))};
+        if (Esnumero(ccTextField.getText()) && NoVacia(data)) {
+            //Datos para crear el archivo de Clientes
+            String sDir = "C:\\user"; // direccion
+            File f = new File(sDir); // instancia de la carpeta
+            String ruta = "C:\\user"; // ruta para el archivo
+            String fileName = "Clientes.txt"; // nombre
+            cliente = new File(ruta, fileName); // instancia el archivo
+
+            if (!cliente.exists()) {//Reviso que el archivo no exista
+                try {
+                    //mira si el archivo existe o no
+                    f.mkdir();
+                    cliente.createNewFile();//Creo el archivo
+                } catch (IOException ex) {
+                    Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+            String dia = Integer.toString(bornDateCollecter.getCalendar().get(Calendar.DATE));//Recupera el dia de la tabla
+            String mes = Integer.toString(bornDateCollecter.getCalendar().get(Calendar.MONTH + 1));//Recupera el mes de la tabla
+            String año = Integer.toString(bornDateCollecter.getCalendar().get(Calendar.YEAR));//Recupera el año de la tabla
+            //SACAR LA INFORMACION DE TEXTFIELD
+            String ced = ccTextField.getText();
+            String nombre = petNTextField.getText();
+            String razaPerro = petRTextField.getText();
+            String colorPerro = petCTextField.getText();
+            String date = dia + "/" + mes + "/" + año;
+
+            //Escribo la informacion en el archivo
+            try (FileWriter fw = new FileWriter(cliente.getAbsolutePath(), true)) {
+                BufferedWriter bw = new BufferedWriter(fw);//Creo el buffered
+                if (!CitaRepetida(cliente, ced, nombre)) {
+                    bw.write(ced + "," + nombre + "," + razaPerro + "," + colorPerro + "," + date);
+                }
+                bw.newLine();
+                bw.flush();
+                bw.close();
+                fw.close();
+            } catch (Exception e) {
+                Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        this.dispose();
+AgendaAdmin.setVisible(true);
+    }//GEN-LAST:event_reAsignButtonActionPerformed
+
+    private void asignQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignQuoteButtonActionPerformed
+        this.dispose();
+        AsignQuotes.setVisible(true);
+    }//GEN-LAST:event_asignQuoteButtonActionPerformed
+    private boolean CitaRepetida(File archivo, String cedula, String nombre) {
+        try (Scanner sc = new Scanner(archivo)) {
+            while (sc.hasNextLine()) {
+                String linea = sc.nextLine();
+                String data[] = linea.split(",");
+                if (data[0].equals(cedula) && data[1].equals(nombre)) {
+                    return true;
+                }
+            }
+            sc.close();
+            return false;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -460,26 +620,48 @@ public class AdminInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame AgendaAdmin;
+    private javax.swing.JFrame AsignQuotes;
     private javax.swing.JPanel adminCardTitle;
     private javax.swing.JLabel adminTitle;
     private javax.swing.JLabel agendTItle;
     private javax.swing.JButton asignQuoteButton;
+    private javax.swing.JPanel asignTitle;
+    private com.toedter.calendar.JDateChooser bornDateCollecter;
+    private javax.swing.JLabel bornDateTitle;
     private javax.swing.JTextField buscar;
     private javax.swing.JButton cancelQuoteButton;
     private javax.swing.JPanel cardContent;
     private javax.swing.JPanel cardcontent;
+    private javax.swing.JLabel ccOnwerTitle;
+    private javax.swing.JTextField ccTextField;
     private javax.swing.JButton consultQuoteButton;
+    private javax.swing.JPanel content;
     private javax.swing.JTable dataTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JButton modifyQuoteButton;
+    private javax.swing.JTextField petCTextField;
+    private javax.swing.JLabel petColorTitle;
+    private javax.swing.JTextField petNTextField;
+    private javax.swing.JLabel petNameTitle;
+    private javax.swing.JTextField petRTextField;
+    private javax.swing.JLabel petRaceTitle;
+    private javax.swing.JButton reAsignButton;
     private javax.swing.JButton saveButton;
-    private javax.swing.JButton selectButton;
     private javax.swing.JScrollPane showDataPanel;
     private javax.swing.JPanel title;
     // End of variables declaration//GEN-END:variables
+//Valido que todos los datos hallan sido ingresados
+    private boolean NoVacia(String[] cadena) {
+        for (String cad : cadena) {
+            if (cad.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
