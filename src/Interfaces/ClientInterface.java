@@ -120,6 +120,11 @@ public class ClientInterface extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         SolicitarCita.setText("Solicitar Cita");
         SolicitarCita.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +231,7 @@ public class ClientInterface extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Para cambiar un servicion, primero debe seleccionar una cita en la tabla.");
+        jLabel2.setText("Para cambiar un servicio, primero debe seleccionar una cita en la tabla. Si cambia el servicio, se cancela la cita y se le asigna otra.");
 
         javax.swing.GroupLayout ModificarCitaLayout = new javax.swing.GroupLayout(ModificarCita.getContentPane());
         ModificarCita.getContentPane().setLayout(ModificarCitaLayout);
@@ -235,16 +240,15 @@ public class ClientInterface extends javax.swing.JFrame {
             .addGroup(ModificarCitaLayout.createSequentialGroup()
                 .addGroup(ModificarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ModificarCitaLayout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(jLabel11))
-                    .addGroup(ModificarCitaLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ModificarCitaLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
                         .addGroup(ModificarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addGroup(ModificarCitaLayout.createSequentialGroup()
+                                .addGap(160, 160, 160)
+                                .addComponent(jLabel11))
+                            .addGroup(ModificarCitaLayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ModificarCitaLayout.createSequentialGroup()
+                                .addGap(30, 30, 30)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,8 +257,12 @@ public class ClientInterface extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(guardarCambios)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                                .addComponent(jButton1)))
+                        .addGap(0, 18, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ModificarCitaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)))
+                .addContainerGap())
         );
         ModificarCitaLayout.setVerticalGroup(
             ModificarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,23 +457,25 @@ public class ClientInterface extends javax.swing.JFrame {
         model.setRowCount(0);//Borro los registros
         if (Esnumero(buscar.getText()) && !buscar.getText().isEmpty()) {//Reviso que ingrese un numero o que la cadena no este vacia
             File archivo = new File("C:\\user\\AgendaAdmin.txt");
-            try (Scanner sc = new Scanner(archivo)) {//Abro el archivo
-                while (sc.hasNextLine()) {//mientras halla una siguiente linea
-                    String linea = sc.nextLine();
-                    String data[] = linea.split(",");
-                    String date = data[0];
-                    String ced = data[1];
-                    String nombre = data[2];
-                    String servicio = data[3];
-                    String hora = data[4];
-                    String estado = data[5];
-                    if (ced.equals(buscar.getText())) {//si encuentro coincidencias, muestra los datos en la tabla
-                        model.addRow(new Object[]{date, ced, nombre, servicio, hora, estado});//Muestro los datos de esa cedula
+            if (archivo.exists()) {
+                try (Scanner sc = new Scanner(archivo)) {//Abro el archivo
+                    while (sc.hasNextLine()) {//mientras halla una siguiente linea
+                        String linea = sc.nextLine();
+                        String data[] = linea.split(",");
+                        String date = data[0];
+                        String ced = data[1];
+                        String nombre = data[2];
+                        String servicio = data[3];
+                        String hora = data[4];
+                        String estado = data[5];
+                        if (ced.equals(buscar.getText())) {//si encuentro coincidencias, muestra los datos en la tabla
+                            model.addRow(new Object[]{date, ced, nombre, servicio, hora, estado});//Muestro los datos de esa cedula
+                        }
                     }
+                    sc.close();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                sc.close();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             model.setRowCount(0);//Borro otra vez los registros
@@ -507,7 +517,6 @@ public class ClientInterface extends javax.swing.JFrame {
                 String ced = cedula.getText();
                 String nombre = nombrePerro.getText();
                 String estado = "Solicitada";
-                cliente = new File("C:\\user\\Clientes.txt");
 
                 try (FileWriter fw = new FileWriter(cita.getAbsolutePath(), true)) {
                     BufferedWriter bw = new BufferedWriter(fw);
@@ -526,12 +535,16 @@ public class ClientInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_SolicitarCitaActionPerformed
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();//Tabla de cancelacion de citas
-        DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();//Tabla de servicios
-        int selectedServicios = jTable1.getSelectedRow();//Servicio seleccionado
-        int selectedCitas = jTable2.getSelectedRow();//Cita seleccionada
-        if(jTable1.getSelectedRow() > -1){
-            model.setValueAt(model2.getValueAt(selectedServicios, 0), selectedCitas, 3);
+        if (!SolicitarCita.isEnabled()) {
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();//Tabla de cancelacion de citas
+            DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();//Tabla de servicios
+            int selectedServicios = jTable1.getSelectedRow();//Servicio seleccionado
+            int selectedCitas = jTable2.getSelectedRow();//Cita seleccionada
+            if (jTable1.getSelectedRow() > -1) {
+                model.setValueAt(model2.getValueAt(selectedServicios, 0), selectedCitas, 3);
+                model.setValueAt("Solicitada", selectedCitas, 5);
+                save(model);
+            }
         }
     }//GEN-LAST:event_jTable1MouseReleased
 
@@ -579,7 +592,6 @@ public class ClientInterface extends javax.swing.JFrame {
             sc.close();
             return false;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -661,7 +673,7 @@ public class ClientInterface extends javax.swing.JFrame {
         String dir = "C:\\user";
         String nameFile = "Cambios.txt";
         File archivo = new File(dir, nameFile);
-        agenda = new File("C:\\user\\Agenda.txt");
+        agenda = new File("C:\\user\\AgendaAdmin.txt");
 
         if (!archivo.exists()) {
             f.mkdir();
@@ -672,56 +684,92 @@ public class ClientInterface extends javax.swing.JFrame {
             }
         }
 
-        try (FileWriter fw = new FileWriter(archivo.getAbsoluteFile())) {
-            BufferedWriter bw = new BufferedWriter(fw);
-            Scanner sc = new Scanner(agenda);
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-                String data[] = linea.split(",");
-                String date = data[0];
-                String ced = data[1];
-                String nombre = data[2];
-                String servicio = data[3];
-                String hora = data[4];
-                String estado = data[5];
-                for (int i = 0; i < model.getRowCount(); i++) {
-                    if (model.getValueAt(i, 0).equals(ced) && model.getValueAt(i, 1).equals(nombre)) {
-                        ced = (String) model.getValueAt(i, 0);
-                        nombre = (String) model.getValueAt(i, 1);
-                        servicio = (String) model.getValueAt(i, 2);
-                        date = (String) model.getValueAt(i, 3);
-                        hora = (String) model.getValueAt(i, 4);
-                        estado = (String) model.getValueAt(i, 5);
+        if (agenda.exists()) {
+            try (FileWriter fw = new FileWriter(archivo.getAbsoluteFile())) {
+                BufferedWriter bw = new BufferedWriter(fw);
+                Scanner sc = new Scanner(agenda);
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    String data[] = linea.split(",");
+                    String date = data[0];
+                    String ced = data[1];
+                    String nombre = data[2];
+                    String servicio = data[3];
+                    String hora = data[4];
+                    String estado = data[5];
+                    for (int i = 0; i < model.getRowCount(); i++) {
+                        if (model.getValueAt(i, 0).equals(ced) && model.getValueAt(i, 1).equals(nombre)) {
+                            ced = (String) model.getValueAt(i, 0);
+                            nombre = (String) model.getValueAt(i, 1);
+                            servicio = (String) model.getValueAt(i, 2);
+                            date = (String) model.getValueAt(i, 3);
+                            hora = (String) model.getValueAt(i, 4);
+                            estado = (String) model.getValueAt(i, 5);
+                        }
                     }
+                    if (!estado.equals("Solicitada")) {
+                        bw.write(date + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + estado);
+                    } else {//Cancelo la cita en la agenda que cambio el tipo de servicio, y le solicito otra
+                        bw.write(date + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + "Cancelada");
+                        GuardarCita(ced, nombre, servicio, estado);
+                    }
+                    bw.newLine();
                 }
-                bw.write(date + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + estado);
-                bw.newLine();
+                bw.flush();
+                bw.close();
+                fw.close();
+                sc.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
             }
-            bw.flush();
-            bw.close();
-            fw.close();
-            sc.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        try (FileWriter fw = new FileWriter(agenda.getAbsoluteFile())) {
-            BufferedWriter bw = new BufferedWriter(fw);
-            Scanner sc = new Scanner(archivo);
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-                String data[] = linea.split(",");
-                bw.write(data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5]);
-                bw.newLine();
+            try (FileWriter fw = new FileWriter(agenda.getAbsoluteFile())) {
+                BufferedWriter bw = new BufferedWriter(fw);
+                Scanner sc = new Scanner(archivo);
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    String data[] = linea.split(",");
+                    bw.write(data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5]);
+                    bw.newLine();
+                }
+                bw.flush();
+                bw.close();
+                fw.close();
+                sc.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
             }
-            bw.flush();
-            bw.close();
-            fw.close();
-            sc.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
         archivo.delete();
+    }
+
+    private void GuardarCita(String ced, String nombre, String serv, String estado) {
+        String direccion = "C:\\user";
+        File f = new File(direccion);
+        String dir = "C:\\user";
+        String nameFile = "Citas.txt";
+        cita = new File(dir, nameFile);
+
+        //Reviso que no exista el archivo agenda
+        if (!cita.exists()) {
+            try {
+                f.mkdir();
+                cita.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        try (FileWriter fw = new FileWriter(cita.getAbsolutePath(), true)) {
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(ced + "," + nombre + "," + serv + "," + estado);
+            bw.newLine();
+            bw.flush();
+            bw.close();
+            fw.close();
+        } catch (Exception e) {
+            Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
 }

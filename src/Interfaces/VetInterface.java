@@ -34,6 +34,7 @@ public class VetInterface extends javax.swing.JFrame {
         this.setLocation(x, y - 25);
     }
     File historia;
+    File agenda;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -288,6 +289,7 @@ public class VetInterface extends javax.swing.JFrame {
                 Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        CambiarEstadoCita();//al crear la historia clinica, la cita se daria por finalizada
     }//GEN-LAST:event_createHButtonActionPerformed
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
@@ -371,6 +373,52 @@ public class VetInterface extends javax.swing.JFrame {
             }
         }
         return novacia;
+    }
+
+    private void CambiarEstadoCita() {
+        String sDir = "C:\\user"; // direccion
+        File f = new File(sDir); // instancia de la carpeta
+        String ruta = "C:\\user"; // ruta para el archivo
+        String fileName = "Cambios.txt"; // nombre
+        File cambios = new File(ruta, fileName); // instancia el archivo
+        agenda = new File("C:\\user\\AgendaAdmin.txt");
+
+        if (!cambios.exists()) {
+            f.mkdir();
+            try {
+                cambios.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (agenda.exists()) {
+            try (FileWriter fw = new FileWriter(cambios.getAbsoluteFile())) {
+                BufferedWriter bw = new BufferedWriter(fw);
+                Scanner sc = new Scanner(agenda);
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    String datos[] = linea.split(",");
+                    String fecha = datos[0];
+                    String ced = datos[1];
+                    String nombre = datos[2];
+                    String servicio = datos[3];
+                    String hora = datos[4];
+                    String estado = datos[5];
+                    if (ccTextField.getText().equals(ced) && petTextField.getText().equals(nombre)) {
+                        estado = "Finalizada";
+                    }
+                    bw.write(fecha + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + estado);
+                    bw.newLine();
+                }
+                bw.flush();
+                bw.close();
+                fw.close();
+                sc.close();
+            } catch (IOException ex) {
+                Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        cambios.delete();
     }
 
 }
