@@ -9,8 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -259,6 +257,7 @@ public class VetInterface extends javax.swing.JFrame {
         Agenda.setVisible(true);
         File file = new File("C:\\user\\AgendaAdmin.txt");
         DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+        model.setRowCount(0);
         if (file.exists()) {
             try (Scanner sc = new Scanner(file)) {
                 while (sc.hasNextLine()) {

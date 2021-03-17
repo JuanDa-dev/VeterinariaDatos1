@@ -12,8 +12,6 @@ import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -491,9 +489,10 @@ public class AdminInterface extends javax.swing.JFrame {
 
     private void consultQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultQuoteButtonActionPerformed
         AgendaAdmin.setVisible(true);
+        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+        model.setRowCount(0);
         File Adminfile = new File("C:\\user\\AgendaAdmin.txt");
         if (Adminfile.exists()) {
-            DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
             try (Scanner sc = new Scanner(Adminfile)) {
                 while (sc.hasNextLine()) {
                     String linea = sc.nextLine();
@@ -648,7 +647,7 @@ public class AdminInterface extends javax.swing.JFrame {
         try (FileWriter fw = new FileWriter(Adminfile.getAbsoluteFile())) {
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i = 0; i < model.getRowCount(); i++) {
-                bw.write((String) model.getValueAt(i, 0) + "," + (String) model.getValueAt(i, 1) + "," + (String) model.getValueAt(i, 2) + "," + (String) model.getValueAt(i, 3) + "," + (String) model.getValueAt(i, 4));
+                bw.write((String) model.getValueAt(i, 0) + "," + (String) model.getValueAt(i, 1) + "," + (String) model.getValueAt(i, 2) + "," + (String) model.getValueAt(i, 3) + "," + (String) model.getValueAt(i, 4) + "," + (String) model.getValueAt(i, 5));
                 bw.newLine();
             }
             bw.flush();
@@ -681,14 +680,12 @@ public class AdminInterface extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(content, "Error", "El veterinario no atiende fines de semana", JOptionPane.ERROR_MESSAGE);
                     } else {
                         String h = AsignarHora(date, "08", "00", "am", selected);
-                        if (!h.equals("") && !h.equals(null)) {
+                        if (!h.equals("")) {
                             jTextField1.setText(h);
                             reAsignButton.setEnabled(true);
                         } else if (h.equals("")) {
                             JOptionPane.showMessageDialog(content, "Error", "No hay horas disponible, ingrese otra fecha", JOptionPane.ERROR_MESSAGE);
                             reAsignButton.setEnabled(false);
-                        } else {
-                            jTextField1.setText("No necesita");
                         }
                     }
                 } else {
@@ -703,6 +700,7 @@ public class AdminInterface extends javax.swing.JFrame {
     private void asignQuoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignQuoteButtonActionPerformed
         AsignQuotes.setVisible(true);
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
         File cita = new File("C:\\user\\Citas.txt");
         if (cita.exists()) {
             try (Scanner sc = new Scanner(cita)) {
@@ -744,9 +742,10 @@ public class AdminInterface extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            try (FileWriter fw = new FileWriter(factura.getAbsoluteFile())) {
+            try (FileWriter fw = new FileWriter(factura.getAbsoluteFile(), true)) {
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(DateFormat.getDateInstance().format(bornDateCollecter.getDate()) + "," + buscar.getText() + "," + jTextField2.getText());
+                String date = LocalDate.now().getDayOfMonth() + "/" + LocalDate.now().getMonth() + "/" + LocalDate.now().getYear();
+                bw.write(date + "," + buscar.getText() + "," + jTextField2.getText());
                 bw.newLine();
                 bw.flush();
                 bw.close();
@@ -756,9 +755,7 @@ public class AdminInterface extends javax.swing.JFrame {
             }
             refrescarAgenda(buscar.getText());//Se eliminan todas las citas facturadas de la agenda del veterinario
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            for (int i = 0; i < model.getRowCount(); i++) {
-                model.removeRow(i);
-            }
+            model.setRowCount(0);
         } else {
             JOptionPane.showMessageDialog(content, "No hay facturación", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -917,6 +914,7 @@ public class AdminInterface extends javax.swing.JFrame {
                                 hora = String.valueOf(Integer.parseInt(hora) + 1);
                             }
                             if (Integer.parseInt(hora) == 18) {
+                                sc.close();
                                 return "";
                             }
                         }
@@ -927,7 +925,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(content, "Archivo no encontradoo", "Error", JOptionPane.ERROR_MESSAGE);
             }
             if (model.getValueAt(selected, 2).equals("Baño") || model.getValueAt(selected, 2).equals("Guarderia")) {
-                return null;
+                return "No necesita";
             }
         }
         return hora + ":" + minutos + " " + siglas;

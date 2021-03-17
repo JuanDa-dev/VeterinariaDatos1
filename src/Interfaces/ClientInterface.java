@@ -12,8 +12,6 @@ import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -60,6 +58,7 @@ public class ClientInterface extends javax.swing.JFrame {
         guardarCambios = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         reg_title = new javax.swing.JLabel();
         requestQuoteButton = new javax.swing.JButton();
@@ -233,6 +232,8 @@ public class ClientInterface extends javax.swing.JFrame {
 
         jLabel2.setText("Para cambiar un servicio, primero debe seleccionar una cita en la tabla.");
 
+        jLabel8.setText("En esta tabla se mostraran las citas que ya tienen un dia y hora asignadas.");
+
         javax.swing.GroupLayout ModificarCitaLayout = new javax.swing.GroupLayout(ModificarCita.getContentPane());
         ModificarCita.getContentPane().setLayout(ModificarCitaLayout);
         ModificarCitaLayout.setHorizontalGroup(
@@ -258,7 +259,9 @@ public class ClientInterface extends javax.swing.JFrame {
                         .addComponent(jButton1))
                     .addGroup(ModificarCitaLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(jLabel2)))
+                        .addGroup(ModificarCitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel2))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         ModificarCitaLayout.setVerticalGroup(
@@ -277,7 +280,9 @@ public class ClientInterface extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -395,7 +400,7 @@ public class ClientInterface extends javax.swing.JFrame {
     private void registryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registryButtonActionPerformed
         String data[] = {nombrePerro.getText(), raza.getText(), color.getText(), String.valueOf(fecha.getCalendar().get(Calendar.DATE))};
         if (Esnumero(cedula.getText()) && NoVacia(data)) {
-            if (Integer.parseInt(DateFormat.getDateInstance().format(fecha.getDate())) <= LocalDate.now().getDayOfMonth()) {
+            if (fecha.getCalendar().get(Calendar.DAY_OF_MONTH) <= LocalDate.now().getDayOfMonth()) {
                 //Datos para crear el archivo de Clientes
                 String sDir = "C:\\user"; // direccion
                 File f = new File(sDir); // instancia de la carpeta
@@ -512,7 +517,7 @@ public class ClientInterface extends javax.swing.JFrame {
         if (selected > -1) {
             String data[] = {nombrePerro.getText(), raza.getText(), color.getText(), String.valueOf(fecha.getCalendar().get(Calendar.DATE))};
             if (Esnumero(cedula.getText()) && NoVacia(data)) {
-                if (Integer.parseInt(DateFormat.getDateInstance().format(fecha.getDate())) <= LocalDate.now().getDayOfMonth()) {
+                if (fecha.getCalendar().get(Calendar.DAY_OF_MONTH) <= LocalDate.now().getDayOfMonth()) {
                     //Se crean las variables para el archivo agenda
                     String direccion = "C:\\user";
                     File f = new File(direccion);
@@ -567,7 +572,6 @@ public class ClientInterface extends javax.swing.JFrame {
             int selectedCitas = jTable2.getSelectedRow();//Cita seleccionada
             if (jTable1.getSelectedRow() > -1) {
                 model.setValueAt(model2.getValueAt(selectedServicios, 0), selectedCitas, 3);//Cambio el servicio de la tabla
-                save(model);
             }
         }
     }//GEN-LAST:event_jTable1MouseReleased
@@ -683,6 +687,7 @@ public class ClientInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -731,7 +736,7 @@ public class ClientInterface extends javax.swing.JFrame {
                     String hora = data[4];
                     String estado = data[5];
                     for (int i = 0; i < model.getRowCount(); i++) {
-                        if (model.getValueAt(i, 0).equals(ced) && model.getValueAt(i, 1).equals(nombre)) {
+                        if (model.getValueAt(i, 1).equals(ced) && model.getValueAt(i, 2).equals(nombre)) {
                             ced = (String) model.getValueAt(i, 0);
                             nombre = (String) model.getValueAt(i, 1);
                             servicio = (String) model.getValueAt(i, 2);
