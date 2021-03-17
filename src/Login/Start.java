@@ -35,6 +35,8 @@ public class Start extends javax.swing.JFrame {
         imgBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Veterinaria PerrosPET");
+        setResizable(false);
 
         cardCOntent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

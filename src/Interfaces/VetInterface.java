@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import Login.Start;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.BufferedWriter;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VetInterface extends javax.swing.JFrame {
@@ -34,6 +36,7 @@ public class VetInterface extends javax.swing.JFrame {
         this.setLocation(x, y - 25);
     }
     File historia;
+    File agenda;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,11 +70,14 @@ public class VetInterface extends javax.swing.JFrame {
         dateTextField = new javax.swing.JTextField();
         ccTextField = new javax.swing.JTextField();
         petTextField = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
         imgBackground = new javax.swing.JLabel();
 
+        Agenda.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         Agenda.setTitle("Agenda de Citas");
         Agenda.setLocation(new java.awt.Point(150, 100));
-        Agenda.setSize(new java.awt.Dimension(722, 387));
+        Agenda.setResizable(false);
+        Agenda.setSize(new java.awt.Dimension(723, 490));
 
         title.setBackground(new java.awt.Color(8, 156, 255));
 
@@ -152,6 +158,8 @@ public class VetInterface extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Veterinario");
+        setResizable(false);
 
         content.setBackground(new java.awt.Color(255, 255, 255));
         content.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -225,6 +233,16 @@ public class VetInterface extends javax.swing.JFrame {
         petTextField.setEnabled(false);
         content.add(petTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 120, -1));
 
+        jButton3.setBackground(new java.awt.Color(8, 156, 255));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton3.setText("Volver");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        content.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, -1));
+
         imgBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/data/Imagenes/Veterinario.jpg"))); // NOI18N
         content.add(imgBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
 
@@ -245,13 +263,15 @@ public class VetInterface extends javax.swing.JFrame {
     private void consultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultButtonActionPerformed
         Agenda.setVisible(true);
         File file = new File("C:\\user\\AgendaAdmin.txt");
+        DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
         if (file.exists()) {
-            DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
             try (Scanner sc = new Scanner(file)) {
                 while (sc.hasNextLine()) {
                     String linea = sc.nextLine();
                     String data[] = linea.split(",");
-                    model.addRow(new Object[]{data[0], data[1], data[2], data[3], data[4]});
+                    if (data[5].equals("Asignada")) {
+                        model.addRow(new Object[]{data[0], data[1], data[2], data[3], data[4]});
+                    }
                 }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
@@ -260,7 +280,7 @@ public class VetInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_consultButtonActionPerformed
 
     private void createHButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createHButtonActionPerformed
-        String data[] = {dateTextField.getText(), ccTextField.getText(), petTextField.getText(), preescripcion.getText(), diagnostico.getText()};
+        String data[] = {dateTextField.getText(), ccTextField.getText(), petTextField.getText(), diagnostico.getText(), preescripcion.getText()};
         if (NoVacia(data)) {
             String sDir = "C:\\user"; // direccion
             File f = new File(sDir); // instancia de la carpeta
@@ -287,6 +307,9 @@ public class VetInterface extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
             }
+            CambiarEstadoCita();//al crear la historia clinica, la cita se daria por finalizada
+        } else {
+            mensaje("Ningun campo debe quedar vacio");
         }
     }//GEN-LAST:event_createHButtonActionPerformed
 
@@ -297,8 +320,16 @@ public class VetInterface extends javax.swing.JFrame {
             dateTextField.setText((String) model.getValueAt(selected, 0));
             ccTextField.setText((String) model.getValueAt(selected, 1));
             petTextField.setText((String) model.getValueAt(selected, 2));
+            Agenda.dispose();
+        } else {
+            mensaje("Debe seleccionar una cita");
         }
     }//GEN-LAST:event_selectButtonActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+        new Start().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,6 +383,7 @@ public class VetInterface extends javax.swing.JFrame {
     private javax.swing.JLabel diagnosticTitle;
     private javax.swing.JTextArea diagnostico;
     private javax.swing.JLabel imgBackground;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel petNameTitle;
     private javax.swing.JTextField petTextField;
     private javax.swing.JTextArea preescripcion;
@@ -371,6 +403,77 @@ public class VetInterface extends javax.swing.JFrame {
             }
         }
         return novacia;
+    }
+
+    private void CambiarEstadoCita() {
+        String sDir = "C:\\user"; // direccion
+        File f = new File(sDir); // instancia de la carpeta
+        String ruta = "C:\\user"; // ruta para el archivo
+        String fileName = "Cambios.txt"; // nombre
+        File cambios = new File(ruta, fileName); // instancia el archivo
+        agenda = new File("C:\\user\\AgendaAdmin.txt");
+
+        if (!cambios.exists()) {
+            f.mkdir();
+            try {
+                cambios.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (agenda.exists()) {
+            try (FileWriter fw = new FileWriter(cambios.getAbsoluteFile())) {
+                BufferedWriter bw = new BufferedWriter(fw);
+                Scanner sc = new Scanner(agenda);
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    String datos[] = linea.split(",");
+                    String fecha = datos[0];
+                    String ced = datos[1];
+                    String nombre = datos[2];
+                    String servicio = datos[3];
+                    String hora = datos[4];
+                    String estado = datos[5];
+                    if (ccTextField.getText().equals(ced) && petTextField.getText().equals(nombre)) {
+                        estado = "Finalizada";
+                    }
+                    bw.write(fecha + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + estado);
+                    bw.newLine();
+                }
+                bw.flush();
+                bw.close();
+                fw.close();
+                sc.close();
+            } catch (IOException ex) {
+                Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //Actualizo la informacion en el archivo de la agenda
+            try (FileWriter fw = new FileWriter(agenda.getAbsoluteFile())) {
+                BufferedWriter bw = new BufferedWriter(fw);
+                Scanner sc = new Scanner(cambios);
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    String datos[] = linea.split(",");
+                    bw.write(datos[0] + "," + datos[1] + "," + datos[2] + "," + datos[3] + "," + datos[4] + "," + datos[5]);
+                    bw.newLine();
+                }
+                bw.flush();
+                bw.close();
+                fw.close();
+                sc.close();
+            } catch (IOException ex) {
+                Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        cambios.delete();
+    }
+
+    private void mensaje(String cadena) {
+        try {
+            JOptionPane.showMessageDialog(null, cadena);
+        } catch (Exception e) {
+        }
     }
 
 }

@@ -44,8 +44,10 @@ public class LoginInterface extends javax.swing.JFrame {
         singIn_title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(400, 375));
+        setResizable(false);
 
         cardContent.setBackground(new java.awt.Color(255, 255, 255));
 
