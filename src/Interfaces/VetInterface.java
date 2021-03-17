@@ -309,7 +309,7 @@ public class VetInterface extends javax.swing.JFrame {
             }
             CambiarEstadoCita();//al crear la historia clinica, la cita se daria por finalizada
         } else {
-            mensaje("Ningun campo debe quedar vacio");
+            JOptionPane.showMessageDialog(null,"Ningun campo debe quedar vacio");
         }
     }//GEN-LAST:event_createHButtonActionPerformed
 
@@ -322,7 +322,7 @@ public class VetInterface extends javax.swing.JFrame {
             petTextField.setText((String) model.getValueAt(selected, 2));
             Agenda.dispose();
         } else {
-            mensaje("Debe seleccionar una cita");
+            JOptionPane.showMessageDialog(null,"Debe seleccionar una cita");
         }
     }//GEN-LAST:event_selectButtonActionPerformed
 
@@ -467,13 +467,6 @@ public class VetInterface extends javax.swing.JFrame {
             }
         }
         cambios.delete();
-    }
-
-    private void mensaje(String cadena) {
-        try {
-            JOptionPane.showMessageDialog(null, cadena);
-        } catch (Exception e) {
-        }
     }
 
 }

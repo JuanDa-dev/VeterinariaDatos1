@@ -80,6 +80,7 @@ public class AdminInterface extends javax.swing.JFrame {
         buscar = new javax.swing.JTextField();
         asignQuoteButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         AgendaAdmin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         AgendaAdmin.setTitle("Agenda de Citas");
@@ -190,7 +191,6 @@ public class AdminInterface extends javax.swing.JFrame {
         AsignQuotes.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         AsignQuotes.setTitle("Asignación de Citas");
         AsignQuotes.setMinimumSize(new java.awt.Dimension(360, 400));
-        AsignQuotes.setPreferredSize(new java.awt.Dimension(517, 430));
         AsignQuotes.setResizable(false);
         AsignQuotes.setSize(new java.awt.Dimension(530, 455));
 
@@ -406,6 +406,15 @@ public class AdminInterface extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(8, 156, 255));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton4.setText("Guardar Facturación");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout cardContentLayout = new javax.swing.GroupLayout(cardContent);
         cardContent.setLayout(cardContentLayout);
         cardContentLayout.setHorizontalGroup(
@@ -418,22 +427,23 @@ public class AdminInterface extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addGap(119, 119, 119)
                         .addComponent(jLabel1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(cardContentLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addGroup(cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(cardContentLayout.createSequentialGroup()
-                                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, cardContentLayout.createSequentialGroup()
-                                .addComponent(consultQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(asignQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(cardContentLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(consultQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(asignQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(jButton4)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         cardContentLayout.setVerticalGroup(
@@ -445,7 +455,7 @@ public class AdminInterface extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jButton3))
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -455,7 +465,8 @@ public class AdminInterface extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(cardContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(consultQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(asignQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(asignQuoteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
         );
 
@@ -507,7 +518,7 @@ public class AdminInterface extends javax.swing.JFrame {
         if (selecteRow != -1) {
             model.removeRow(selecteRow);
         } else {
-            mensaje("Debe seleccionar una cita");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una cita");
         }
     }//GEN-LAST:event_cancelQuoteButtonActionPerformed
 
@@ -665,32 +676,32 @@ public class AdminInterface extends javax.swing.JFrame {
                 DiaActual = LocalDate.now().getDayOfMonth();
                 pass = true;
             } catch (Exception e) {
-                mensaje("Verifique si coloco una fecha");
+                JOptionPane.showMessageDialog(null, "Verifique si coloco una fecha");
                 pass = false;
             }
             if (pass) {
                 if (Dia > DiaActual) {
                     nombreDia = String.valueOf(bornDateCollecter.getDate()).substring(0, 3);
                     if (nombreDia.equals("Sat") || nombreDia.equals("Sun")) {//Si el dia es sabado o domingo el veterinario no atiende esos 2 dias
-                        mensaje("El Veterinario no atiende los dias sabados ni domingos");
+                        JOptionPane.showMessageDialog(null, "El Veterinario no atiende los dias sabados ni domingos");
                     } else {
                         String h = AsignarHora(date, "08", "00", "am", selected);
                         if (!h.equals("") && !h.equals(null)) {
                             jTextField1.setText(h);
                             reAsignButton.setEnabled(true);
                         } else if (h.equals("")) {
-                            mensaje("No hay horario disponible para ese dia, ingrese otro dia");
+                            JOptionPane.showMessageDialog(null, "No hay horario disponible para ese dia, ingrese otro dia");
                             reAsignButton.setEnabled(false);
                         } else {
                             jTextField1.setText("No necesita");
                         }
                     }
                 } else {
-                    mensaje("Tiene que ingresar un dia mayor al actual");
+                    JOptionPane.showMessageDialog(null, "Tiene que ingresar un dia mayor al actual");
                 }
             }
         } else {
-            mensaje("Tiene que seleccionar una cita");
+            JOptionPane.showMessageDialog(null, "Tiene que seleccionar una cita");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -722,6 +733,41 @@ public class AdminInterface extends javax.swing.JFrame {
         this.dispose();
         new Start().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if (!jTextField2.getText().equals("") && !jTextField2.getText().equals("0")) {
+            String sDir = "C:\\user"; // direccion
+            File f = new File(sDir); // instancia de la carpeta
+            String ruta = "C:\\user"; // ruta para el archivo
+            String fileName = "Facturación.txt"; // nombre
+            File factura = new File(ruta, fileName);
+            if (!factura.exists()) {
+                f.mkdir();
+                try {
+                    factura.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(AdminInterface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            try (FileWriter fw = new FileWriter(factura.getAbsoluteFile())) {
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(buscar.getText() + "," + jTextField2.getText());
+                bw.newLine();
+                bw.flush();
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(AdminInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            refrescarAgenda(buscar.getText());//Todas la citas facturadas seran eliminadas de la agenda del veterinario
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            for (int i = 0; i < model.getRowCount(); i++) {
+                model.removeRow(i);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay facturación");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
     private boolean CitaRepetida(File archivo, String cedula, String nombre) {
         if (archivo.exists()) {
             try (Scanner sc = new Scanner(archivo)) {
@@ -797,6 +843,7 @@ public class AdminInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -891,11 +938,72 @@ public class AdminInterface extends javax.swing.JFrame {
         return hora + ":" + minutos + " " + siglas;
     }
 
-    private void mensaje(String cadena) {
-        try {
-            JOptionPane.showMessageDialog(null, cadena);
-        } catch (Exception e) {
+    private void refrescarAgenda(String cedula) {
+        String sDir = "C:\\user"; // direccion
+        File f = new File(sDir); // instancia de la carpeta
+        String ruta = "C:\\user"; // ruta para el archivo
+        String fileName = "Cambios.txt"; // nombre
+        File cambios = new File(ruta, fileName); // instancia el archivo
+        File agenda = new File("C:\\user\\AgendaAdmin.txt");
+
+        if (!cambios.exists()) {
+            f.mkdir();
+            try {
+                cambios.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        if (agenda.exists()) {
+            try (FileWriter fw = new FileWriter(cambios.getAbsoluteFile())) {
+                BufferedWriter bw = new BufferedWriter(fw);
+                Scanner sc = new Scanner(agenda);
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    String datos[] = linea.split(",");
+                    String fecha = datos[0];
+                    String ced = datos[1];
+                    String nombre = datos[2];
+                    String servicio = datos[3];
+                    String hora = datos[4];
+                    String estado = datos[5];
+                    if (!ced.equals(cedula)) {
+                        bw.write(fecha + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + estado);
+                        bw.newLine();
+                    } else {
+                        if (!estado.equals("Finalizada")) {
+                            bw.write(fecha + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + estado);
+                            bw.newLine();
+                        }
+                    }
+                }
+                bw.flush();
+                bw.close();
+                fw.close();
+                sc.close();
+            } catch (IOException ex) {
+                Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //Actualizo la informacion en el archivo de la agenda
+            try (FileWriter fw = new FileWriter(agenda.getAbsoluteFile())) {
+                BufferedWriter bw = new BufferedWriter(fw);
+                Scanner sc = new Scanner(cambios);
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    String datos[] = linea.split(",");
+                    bw.write(datos[0] + "," + datos[1] + "," + datos[2] + "," + datos[3] + "," + datos[4] + "," + datos[5]);
+                    bw.newLine();
+                }
+                bw.flush();
+                bw.close();
+                fw.close();
+                sc.close();
+            } catch (IOException ex) {
+                Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        cambios.delete();
     }
 
 }

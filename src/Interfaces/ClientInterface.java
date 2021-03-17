@@ -444,10 +444,10 @@ public class ClientInterface extends javax.swing.JFrame {
                     Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, e);
                 }
             } else {
-                mensaje("Es imposible que su mascota haya nacido despues del dia de hoy");
+                JOptionPane.showMessageDialog(null,"Es imposible que su mascota haya nacido despues del dia de hoy");
             }
         } else {
-            mensaje("Verifique si ingreso todos los datos o si los ingreso correctamente");
+            JOptionPane.showMessageDialog(null,"Verifique si ingreso todos los datos o si los ingreso correctamente");
         }
     }//GEN-LAST:event_registryButtonActionPerformed
 
@@ -472,7 +472,7 @@ public class ClientInterface extends javax.swing.JFrame {
         if (selected > -1) {
             model.setValueAt("Cancelada", selected, 5);
         } else {
-            mensaje("Debe seleccionar una cita");
+            JOptionPane.showMessageDialog(null,"Debe seleccionar una cita");
         }
     }//GEN-LAST:event_cancelarCitaActionPerformed
 
@@ -512,7 +512,7 @@ public class ClientInterface extends javax.swing.JFrame {
             SolicitarCita.setVisible(false);
             SolicitudCita.setVisible(true);
         } else {
-            mensaje("Debe seleccionar una cita");
+            JOptionPane.showMessageDialog(null,"Debe seleccionar una cita");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -558,13 +558,13 @@ public class ClientInterface extends javax.swing.JFrame {
                         Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, e);
                     }
                 } else {
-                    mensaje("Es imposible que su mascota haya nacido despues del dia de hoy");
+                    JOptionPane.showMessageDialog(null,"Es imposible que su mascota haya nacido despues del dia de hoy");
                 }
             } else {
-                mensaje("Debe ingresar todos lo datos para solicitar una cita");
+                JOptionPane.showMessageDialog(null,"Debe ingresar todos lo datos para solicitar una cita");
             }
         } else {
-            mensaje("Necesita seleccionar un servicio");
+            JOptionPane.showMessageDialog(null,"Necesita seleccionar un servicio");
         }
     }//GEN-LAST:event_SolicitarCitaActionPerformed
 
@@ -781,14 +781,6 @@ public class ClientInterface extends javax.swing.JFrame {
             }
         }
         archivo.delete();
-    }
-
-    private void mensaje(String cadena) {
-        try {
-            JOptionPane.showMessageDialog(null, cadena);
-        } catch (Exception e) {
-
-        }
     }
 
 }
