@@ -102,13 +102,13 @@ public class Start extends javax.swing.JFrame {
     private void vetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vetButtonActionPerformed
         new LoginInterface("Veterinario").setVisible(true);
         this.dispose();
-        JOptionPane.showMessageDialog(cardContent, "Information ", "Para poder acceder al módulo escriba Nombre:Edilberto Clave 1111", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(cardContent, "Para poder acceder al módulo escriba Nombre:Edilberto Clave 1111","Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_vetButtonActionPerformed
 
     private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
         new LoginInterface("Administrador").setVisible(true);
         this.dispose();
-        JOptionPane.showMessageDialog(cardContent, "Information ", "Para poder acceder al módulo escriba Nombre:Juan Clave 1234", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(cardContent,"Para poder acceder al módulo escriba Nombre:Juan Clave 1234","Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_adminButtonActionPerformed
 
     /**

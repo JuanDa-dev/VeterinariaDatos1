@@ -141,7 +141,7 @@ public class LoginInterface extends javax.swing.JFrame {
             new AdminInterface().setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(cardContent,"Error","Usuario o contraseña incorrectos, digite nuevamente",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(cardContent,"Usuario o contraseña incorrectos, digite nuevamente","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_singInbuttonMouseClicked
 

@@ -502,7 +502,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 }
                 sc.close();
             } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_consultQuoteButtonActionPerformed
@@ -513,7 +513,7 @@ public class AdminInterface extends javax.swing.JFrame {
         if (selecteRow != -1) {
             model.removeRow(selecteRow);
         } else {
-            JOptionPane.showMessageDialog(content, "Error", "Debe seleccionar una cita", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Debe seleccionar una cita", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cancelQuoteButtonActionPerformed
 
@@ -564,7 +564,7 @@ public class AdminInterface extends javax.swing.JFrame {
                     }
                     sc.close();
                 } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(content, "Error", "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(content, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
@@ -598,7 +598,7 @@ public class AdminInterface extends javax.swing.JFrame {
                     f.mkdir();
                     agenda.createNewFile();//Se crea el archivo
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -624,7 +624,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 bw.close();
                 fw.close();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         jTextField1.setText("");
@@ -642,7 +642,7 @@ public class AdminInterface extends javax.swing.JFrame {
             try {
                 Adminfile.createNewFile();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         try (FileWriter fw = new FileWriter(Adminfile.getAbsoluteFile())) {
@@ -655,7 +655,7 @@ public class AdminInterface extends javax.swing.JFrame {
             bw.close();
             fw.close();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -671,7 +671,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 DiaActual = LocalDate.now().getDayOfMonth();
                 pass = true;
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(content, "Error", "Por favor coloque una fecha", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Por favor coloque una fecha", "Error", JOptionPane.ERROR_MESSAGE);
                 pass = false;
             }
             if (pass) {
@@ -692,11 +692,11 @@ public class AdminInterface extends javax.swing.JFrame {
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(content, "Error", "Ingrese un día después de hoy", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(content, "Ingrese un día después de hoy", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(content, "Error", "Debe seleccionar una cita", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Debe seleccionar una cita", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -719,7 +719,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 }
                 sc.close();
             } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);;
+                JOptionPane.showMessageDialog(content, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_asignQuoteButtonActionPerformed
@@ -741,7 +741,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 try {
                     factura.createNewFile();
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
             try (FileWriter fw = new FileWriter(factura.getAbsoluteFile())) {
@@ -752,7 +752,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 bw.close();
                 fw.close();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
             refrescarAgenda(buscar.getText());//Se eliminan todas las citas facturadas de la agenda del veterinario
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -760,7 +760,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 model.removeRow(i);
             }
         } else {
-            JOptionPane.showMessageDialog(content, "Error", "No hay facturación", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "No hay facturación", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
     private boolean CitaRepetida(File archivo, String cedula, String nombre) {
@@ -776,7 +776,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 sc.close();
                 return false;
             } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         }
@@ -875,7 +875,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 f.mkdir();
                 cita.createNewFile();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -889,7 +889,7 @@ public class AdminInterface extends javax.swing.JFrame {
             bw.close();
             fw.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -924,7 +924,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 }
                 sc.close();
             } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Archivo no encontradoo", "Error", JOptionPane.ERROR_MESSAGE);
             }
             if (model.getValueAt(selected, 2).equals("Baño") || model.getValueAt(selected, 2).equals("Guarderia")) {
                 return null;
@@ -946,7 +946,7 @@ public class AdminInterface extends javax.swing.JFrame {
             try {
                 cambios.createNewFile();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         if (agenda.exists()) {
@@ -977,7 +977,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 fw.close();
                 sc.close();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
             //Se actualiza la informacion en el archivo de la agenda
@@ -995,7 +995,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 fw.close();
                 sc.close();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         cambios.delete();

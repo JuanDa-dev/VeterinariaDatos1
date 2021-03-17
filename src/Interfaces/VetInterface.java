@@ -269,7 +269,7 @@ public class VetInterface extends javax.swing.JFrame {
                     }
                 }
             } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(content, "error ", "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(content, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_consultButtonActionPerformed
@@ -288,7 +288,7 @@ public class VetInterface extends javax.swing.JFrame {
                 try {
                     historia.createNewFile();
                 } catch (IOException ex) {
-                    Logger.getLogger(VetInterface.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -300,11 +300,11 @@ public class VetInterface extends javax.swing.JFrame {
                 bw.close();
                 fw.close();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
             CambiarEstadoCita();//al crear la historia clinica, la cita se daria por finalizada
         } else {
-            JOptionPane.showMessageDialog(content, "Error", "Ningun campo debe quedar vacio", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Ningún campo debe estar vacío, vuelva a intentarlo", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_createHButtonActionPerformed
 
@@ -317,7 +317,7 @@ public class VetInterface extends javax.swing.JFrame {
             petTextField.setText((String) model.getValueAt(selected, 2));
             Agenda.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una cita");
+            JOptionPane.showMessageDialog(content, "Debe seleccionar una cita", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_selectButtonActionPerformed
 
@@ -413,7 +413,7 @@ public class VetInterface extends javax.swing.JFrame {
             try {
                 cambios.createNewFile();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "No se pudo crear el archivo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         if (agenda.exists()) {
@@ -440,7 +440,7 @@ public class VetInterface extends javax.swing.JFrame {
                 fw.close();
                 sc.close();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
             //Actualiza la informacion en el archivo de la agenda
@@ -458,7 +458,7 @@ public class VetInterface extends javax.swing.JFrame {
                 fw.close();
                 sc.close();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         cambios.delete();

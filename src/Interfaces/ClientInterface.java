@@ -432,13 +432,13 @@ public class ClientInterface extends javax.swing.JFrame {
                     bw.close();
                     fw.close();
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(content, "Error", "Error de fecha de nacimiento", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error en la fecha de nacimiento", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(content, "Error", "Datos incorrectos, vuelva a intentarlo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Datos incorrectos, vuelva a intentarlo", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_registryButtonActionPerformed
 
@@ -463,7 +463,7 @@ public class ClientInterface extends javax.swing.JFrame {
         if (selected > -1) {
             model.setValueAt("Cancelada", selected, 5);
         } else {
-            JOptionPane.showMessageDialog(content, "Error", "Debe seleccionar una cita", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Debe seleccionar una cita", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cancelarCitaActionPerformed
 
@@ -489,7 +489,7 @@ public class ClientInterface extends javax.swing.JFrame {
                     }
                     sc.close();
                 } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(content, "Error", "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(content, "Archivo no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
@@ -503,7 +503,7 @@ public class ClientInterface extends javax.swing.JFrame {
             SolicitarCita.setVisible(false);
             SolicitudCita.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(content, "Error", "Debe seleccionar la cita", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Debe seleccionar almenos 1 cita", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -526,7 +526,7 @@ public class ClientInterface extends javax.swing.JFrame {
                             f.mkdir();
                             cita.createNewFile();
                         } catch (IOException ex) {
-                            Logger.getLogger(ClientInterface.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
 
@@ -546,16 +546,16 @@ public class ClientInterface extends javax.swing.JFrame {
                         bw.close();
                         fw.close();
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(content, "Error", "Error de fecha de nacimiento", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(content, "Error en la fecha de nacimiento", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(content, "Error", "Por favor Ingrese todos los datos", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(content, "Error", "Debe seleccionar un servicio", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(content, "Debe seleccionar un servicio", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_SolicitarCitaActionPerformed
 
@@ -713,7 +713,7 @@ public class ClientInterface extends javax.swing.JFrame {
             try {
                 archivo.createNewFile();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -751,7 +751,7 @@ public class ClientInterface extends javax.swing.JFrame {
                 fw.close();
                 sc.close();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
             try (FileWriter fw = new FileWriter(agenda.getAbsoluteFile())) {
@@ -768,7 +768,7 @@ public class ClientInterface extends javax.swing.JFrame {
                 fw.close();
                 sc.close();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(content, "Error", "Error inesperado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         archivo.delete();
