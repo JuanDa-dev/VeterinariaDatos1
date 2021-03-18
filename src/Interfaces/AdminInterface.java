@@ -589,47 +589,56 @@ public class AdminInterface extends javax.swing.JFrame {
 
     private void reAsignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reAsignButtonActionPerformed
         int selected = jTable2.getSelectedRow();
-        if (selected > -1 && !jTextField1.getText().equals("")) {
-            //Datos para crear el archivo de Clientes
-            String sDir = "C:\\user"; // Ruta absoulta
-            File f = new File(sDir); // Instancia de la carpeta
-            String ruta = "C:\\user"; // Ruta relatova del archivo
-            String fileName = "AgendaAdmin.txt"; // Nombre
-            File agenda = new File(ruta, fileName); // Instancia el archivo
+        if (selected > -1 && !jTextField1.getText().equals("") && !String.valueOf(bornDateCollecter.getCalendar().get(Calendar.DAY_OF_MONTH)).isEmpty()) {
+            int dia = bornDateCollecter.getCalendar().get(Calendar.DAY_OF_MONTH);
+            int mes = bornDateCollecter.getCalendar().get(Calendar.MONTH) + 1;
+            int año = bornDateCollecter.getCalendar().get(Calendar.YEAR);
+            //Recupero los datos de la fecha actual
+            int diaActual = LocalDate.now().getDayOfMonth();
+            int mesActual = LocalDate.now().getMonthValue();
+            int añoActual = LocalDate.now().getYear();
+            if (ValidarFecha(dia,diaActual,mes,mesActual,año,añoActual)) {
+                //Datos para crear el archivo de Clientes
+                String sDir = "C:\\user"; // Ruta absoulta
+                File f = new File(sDir); // Instancia de la carpeta
+                String ruta = "C:\\user"; // Ruta relatova del archivo
+                String fileName = "AgendaAdmin.txt"; // Nombre
+                File agenda = new File(ruta, fileName); // Instancia el archivo
 
-            if (!agenda.exists()) {//Se revisa que el archivo no exista
-                try {
-                    //Verifica si el archivo existe o no
-                    f.mkdir();
-                    agenda.createNewFile();//Se crea el archivo
-                } catch (IOException ex) {
+                if (!agenda.exists()) {//Se revisa que el archivo no exista
+                    try {
+                        //Verifica si el archivo existe o no
+                        f.mkdir();
+                        agenda.createNewFile();//Se crea el archivo
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                //Toma la información de los TextFields
+                String ced = (String) model.getValueAt(0, 0);
+                String nombre = (String) model.getValueAt(0, 1);
+                String servicio = (String) model.getValueAt(0, 2);
+                String date = DateFormat.getDateInstance().format(bornDateCollecter.getDate());
+                String estado = "Asignada";
+                String hora = jTextField1.getText();
+                Guardar();
+
+                //Se escribe la informacion en el archivo
+                try (FileWriter fw = new FileWriter(agenda.getAbsolutePath(), true)) {
+                    BufferedWriter bw = new BufferedWriter(fw);//Se crea el buffered
+                    if (!CitaRepetida(agenda, ced, nombre)) {
+                        bw.write(date + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + estado);
+                        bw.newLine();
+                    }
+                    bw.flush();
+                    bw.close();
+                    fw.close();
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-            }
-
-            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            //Toma la información de los TextFields
-            String ced = (String) model.getValueAt(0, 0);
-            String nombre = (String) model.getValueAt(0, 1);
-            String servicio = (String) model.getValueAt(0, 2);
-            String date = DateFormat.getDateInstance().format(bornDateCollecter.getDate());
-            String estado = "Asignada";
-            String hora = jTextField1.getText();
-            Guardar();
-
-            //Se escribe la informacion en el archivo
-            try (FileWriter fw = new FileWriter(agenda.getAbsolutePath(), true)) {
-                BufferedWriter bw = new BufferedWriter(fw);//Se crea el buffered
-                if (!CitaRepetida(agenda, ced, nombre)) {
-                    bw.write(date + "," + ced + "," + nombre + "," + servicio + "," + hora + "," + estado);
-                    bw.newLine();
-                }
-                bw.flush();
-                bw.close();
-                fw.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         jTextField1.setText("");
@@ -677,7 +686,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 date = DateFormat.getDateInstance().format(bornDateCollecter.getDate());
                 //recupero los datos del JDateChooser
                 dia = bornDateCollecter.getCalendar().get(Calendar.DAY_OF_MONTH);
-                mes = bornDateCollecter.getCalendar().get(Calendar.MONTH)+1;
+                mes = bornDateCollecter.getCalendar().get(Calendar.MONTH) + 1;
                 año = bornDateCollecter.getCalendar().get(Calendar.YEAR);
                 //Recupero los datos de la fecha actual
                 diaActual = LocalDate.now().getDayOfMonth();
@@ -689,7 +698,7 @@ public class AdminInterface extends javax.swing.JFrame {
                 pass = false;
             }
             if (pass) {
-                if (ValidarFecha(dia,diaActual,mes,mesActual,año,añoActual)) {//Valido que se ingrese una fecha mayor a la actual
+                if (ValidarFecha(dia, diaActual, mes, mesActual, año, añoActual)) {//Valido que se ingrese una fecha mayor a la actual
                     nombreDia = String.valueOf(bornDateCollecter.getDate()).substring(0, 3);
                     if (nombreDia.equals("Sat") || nombreDia.equals("Sun")) {//Si el dia es sabado o domingo el veterinario no atiende esos 2 dias
                         JOptionPane.showMessageDialog(content, "Error", "El veterinario no atiende fines de semana", JOptionPane.ERROR_MESSAGE);
@@ -782,6 +791,7 @@ public class AdminInterface extends javax.swing.JFrame {
                     String linea = sc.nextLine();
                     String data[] = linea.split(",");
                     if (data[1].equals(cedula) && data[2].equals(nombre)) {
+                        sc.close();
                         return true;
                     }
                 }
@@ -1017,7 +1027,11 @@ public class AdminInterface extends javax.swing.JFrame {
 
     //Valido la fecha del JDateChooser
     private boolean ValidarFecha(int dia, int diaActual, int mes, int mesActual, int año, int añoActual) {
-        if (dia > diaActual && mes >= mesActual && año >= añoActual) {
+        if (año > añoActual) {
+            return true;
+        } else if (año == añoActual && mes > mesActual) {
+            return true;
+        } else if (año == año && mes == mesActual && dia > diaActual) {
             return true;
         }
         return false;

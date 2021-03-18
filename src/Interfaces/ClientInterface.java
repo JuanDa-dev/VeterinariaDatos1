@@ -402,7 +402,7 @@ public class ClientInterface extends javax.swing.JFrame {
         if (Esnumero(cedula.getText()) && NoVacia(data)) {
             //Datos del JDateChooser
             int dia = fecha.getCalendar().get(Calendar.DAY_OF_MONTH);
-            int mes = fecha.getCalendar().get(Calendar.MONTH)+1;
+            int mes = fecha.getCalendar().get(Calendar.MONTH) + 1;
             int año = fecha.getCalendar().get(Calendar.YEAR);
             //Datos de la fecha actual
             int diaActual = LocalDate.now().getDayOfMonth();
@@ -525,44 +525,57 @@ public class ClientInterface extends javax.swing.JFrame {
         if (selected > -1) {
             String data[] = {nombrePerro.getText(), raza.getText(), color.getText(), String.valueOf(fecha.getCalendar().get(Calendar.DATE))};
             if (Esnumero(cedula.getText()) && NoVacia(data)) {
-                if (fecha.getCalendar().get(Calendar.DAY_OF_MONTH) <= LocalDate.now().getDayOfMonth()) {
-                    //Se crean las variables para el archivo agenda
-                    String direccion = "C:\\user";
-                    File f = new File(direccion);
-                    String dir = "C:\\user";
-                    String nameFile = "Citas.txt";
-                    cita = new File(dir, nameFile);
+                if (ClienteExiste(cedula.getText(), nombrePerro.getText())) {
+                    //Datos del JDateChooser
+                    int dia = fecha.getCalendar().get(Calendar.DAY_OF_MONTH);
+                    int mes = fecha.getCalendar().get(Calendar.MONTH) + 1;
+                    int año = fecha.getCalendar().get(Calendar.YEAR);
+                    //Datos de la fecha actual
+                    int diaActual = LocalDate.now().getDayOfMonth();
+                    int mesActual = LocalDate.now().getMonthValue();
+                    int añoActual = LocalDate.now().getYear();
 
-                    //Se revisa que no exista el archivo agenda
-                    if (!cita.exists()) {
-                        try {
-                            f.mkdir();
-                            cita.createNewFile();
-                        } catch (IOException ex) {
+                    if (ValidarFecha(dia, diaActual, mes, mesActual, año, añoActual)) {
+                        //Se crean las variables para el archivo agenda
+                        String direccion = "C:\\user";
+                        File f = new File(direccion);
+                        String dir = "C:\\user";
+                        String nameFile = "Citas.txt";
+                        cita = new File(dir, nameFile);
+
+                        //Se revisa que no exista el archivo agenda
+                        if (!cita.exists()) {
+                            try {
+                                f.mkdir();
+                                cita.createNewFile();
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+
+                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                        String serv = (String) model.getValueAt(selected, 0);//Recupero el sevicio que selecciono
+                        String ced = cedula.getText();
+                        String nombre = nombrePerro.getText();
+                        String estado = "Solicitada";
+
+                        try (FileWriter fw = new FileWriter(cita.getAbsolutePath(), true)) {
+                            BufferedWriter bw = new BufferedWriter(fw);
+                            if (!CitaRepetida(cita, ced, nombre)) {
+                                bw.write(ced + "," + nombre + "," + serv + "," + estado);
+                                bw.newLine();
+                            }
+                            bw.flush();
+                            bw.close();
+                            fw.close();
+                        } catch (Exception e) {
                             JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                    }
-
-                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                    String serv = (String) model.getValueAt(selected, 0);//Recupero el sevicio que selecciono
-                    String ced = cedula.getText();
-                    String nombre = nombrePerro.getText();
-                    String estado = "Solicitada";
-
-                    try (FileWriter fw = new FileWriter(cita.getAbsolutePath(), true)) {
-                        BufferedWriter bw = new BufferedWriter(fw);
-                        if (!CitaRepetida(cita, ced, nombre)) {
-                            bw.write(ced + "," + nombre + "," + serv + "," + estado);
-                            bw.newLine();
-                        }
-                        bw.flush();
-                        bw.close();
-                        fw.close();
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(content, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(content, "Error en la fecha de nacimiento", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(content, "Error en la fecha de nacimiento", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(content, "Debe registrarse primero", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(content, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -628,6 +641,7 @@ public class ClientInterface extends javax.swing.JFrame {
                     String linea = sc.nextLine();
                     String data[] = linea.split(",");
                     if (data[0].equals(cedula) && data[1].equals(nombre)) {
+                        sc.close();
                         return true;
                     }
                 }
@@ -789,12 +803,33 @@ public class ClientInterface extends javax.swing.JFrame {
 
     //Valido la fecha del JDateChooser
     private boolean ValidarFecha(int dia, int diaActual, int mes, int mesActual, int año, int añoActual) {
-        if (dia <= diaActual && mes <= mesActual && año <= añoActual) {
+        if (año < añoActual) {//Si el año es menor, la fecha es valida
             return true;
-        } else if (dia > diaActual && mes < mesActual && año <= añoActual) {
+        } else if (año == añoActual && mes < mesActual) {//Si el año es igual y el mes es menor, la fecha es valida
             return true;
-        } else if (mes > mesActual && año < añoActual) {
+        } else if (año == añoActual && mes == mesActual && dia <= diaActual) {//Si tanto el año y el mes son iguales y el dia es menor o igual al actual, la fecha es valida
             return true;
+        }
+        return false;
+    }
+
+    private boolean ClienteExiste(String cedula, String nombre) {
+        cliente = new File("C:\\user\\Clientes.txt");
+        if (cliente.exists()) {
+            try (Scanner sc = new Scanner(cita)) {
+                while (sc.hasNextLine()) {
+                    String linea = sc.nextLine();
+                    String data[] = linea.split(linea);
+                    String ced = data[0];
+                    String nom = data[1];
+                    if (ced.equals(cedula) && nom.equals(nombre)) {
+                        sc.close();
+                        return true;
+                    }
+                }
+                sc.close();
+            } catch (FileNotFoundException e) {
+            }
         }
         return false;
     }
