@@ -1,0 +1,2 @@
+El ejecutable .jar se encuentra en la carpeta /dist, 
+desde allí podrá ejecutar el software realizado.
